@@ -1,0 +1,47 @@
+{
+  "name": "unnamed-tourney-overlays",
+  "version": "0.0.0",
+  "description": "Overlays for a fun one-off Splatoon tournament",
+  "homepage": "",
+  "author": {
+    "name": "inkfarer",
+    "email": "inkfarer@inkfarer.com",
+    "url": "https://inkfarer.com"
+  },
+  "files": [
+    "dashboard",
+    "graphics",
+    "extension.js",
+    "extension"
+  ],
+  "keywords": [
+    "",
+    "nodecg-bundle"
+  ],
+  "nodecg": {
+    "compatibleRange": "^1.1.1",
+    "dashboardPanels": [
+      {
+        "name": "idk-haha",
+        "title": "Idk Haha",
+        "width": 2,
+        "file": "idk-haha.html",
+        "workspace": "Unnamed",
+        "headerColor": "#262F40"
+      }
+    ],
+    "graphics": [
+      {
+        "file": "main.html",
+        "width": 1920,
+        "height": 1080
+      }
+    ]
+  },
+  "repository": "https://github.com/nodecg/nodecg.git",
+  "license": "MIT",
+  "dependencies": {
+    "gsap": "^3.4.2",
+    "lastfm": "^0.9.3"
+  }
+}
