@@ -1,14 +1,5 @@
 module.exports = function(nodecg) {
 	const mapWinners = nodecg.Replicant('mapWinners', { defaultValue: [0, 0, 0, 0, 0, 0, 0] });
-	const currentMaplist = nodecg.Replicant('currentMaplist', {
-		defaultValue:
-			[
-				{ id: 0, name: 'Default map list' },
-				{ map: 'Ancho-V Games', mode: 'Clam Blitz' },
-				{ map: 'Ancho-V Games', mode: 'Tower Control' },
-				{ map: 'Wahoo World', mode: 'Rainmaker' }
-			]
-	});
 	const teamScores = nodecg.Replicant('teamScores', {defaultValue: {
 		teamA: 0,
 		teamB: 0

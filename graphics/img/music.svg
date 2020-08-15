@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100.62 104.52">
+  <defs>
+    <style>
+      .a, .b {
+        fill: none;
+        stroke: #444;
+        stroke-width: 19px;
+      }
+
+      .a {
+        stroke-linecap: round;
+      }
+
+      .b {
+        stroke-linecap: square;
+      }
+    </style>
+  </defs>
+  <title>music</title>
+  <polyline class="a" points="34.88 82.17 34.88 26.17 90.88 12.17 90.88 72.87"/>
+  <path class="b" d="M27.8,95.7c-6.9,2.5-13.8.8-15.5-3.7s2.5-10.3,9.4-12.8,13.7-.8,15.4,3.8S34.6,93.2,27.8,95.7Zm56-9.3c-6.8,2.5-13.7.8-15.4-3.8s2.5-10.3,9.4-12.8,13.7-.8,15.4,3.8S90.6,83.9,83.8,86.4Z" transform="translate(-2.42 -1.83)"/>
+</svg>

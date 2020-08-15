@@ -1,37 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 	<style>
 		body {
-			font-family: sans-serif;
+			font-family: 'Roboto Condensed';
+			width: 1920px;
+			height: 1080px;
+			overflow: hidden;
 		}
 
-		.monospace {
-			font-family: monospace;
+		.scWrapper {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            height: 120px;
+            width: 460px;
+			overflow: hidden;
+			align-items: center;
+			border-radius: 10px;
+		}
+
+		.scBorder {
+			width: 460px;
+			height: 460px;
+			margin-top: -155px;
+			z-index: -10;
+			background: linear-gradient(90deg, rgba(80,216,144,1) 0%, rgba(80,216,144,1) 33%, rgba(79,152,202,1) 33%, rgba(79,152,202,1) 66%, rgba(80,216,144,1) 66%);
+			background-size: 300% 300%;
+			animation: scBGRotate 5s linear infinite;
+			transform: rotate(45deg);
+		}
+
+		@keyframes scBGRotate {
+			0% {
+				background-position: 0% 0%;
+			}
+			/*30% {
+				background-position: 50% 0%;
+			}
+			50% {
+				background-position: 50% 0%;
+			}
+			80% {
+				background-position: 100% 0%;
+			}*/
+			100% {
+				background-position: 100% 0%;
+			}
+		}
+
+		.scBackground {
+			background-color: white;
+			filter: drop-shadow(55px 0 0 #E7E7E7);
+			z-index: 9;
+			width: 395px;
+			height: 110px;
+			position: absolute;
+			left: 5px;
+			top: 5px;
+			border-radius: 10px;
+		}
+
+		.scoreboard {
+			border-radius: 10px;
+			width: 450px;
+			height: 110px;
+			z-index: 10;
+			position: absolute;
+			left: 5px;
+			top: 5px;
+		}
+
+		.teamsGrid {
+			height: 100px;
+			width: 350px;
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 1fr;
+			align-items: center;
+			margin-left: 10px;
+			margin-top: 5px;
+			z-index: 25;
+			left: 40px;
+			position: absolute;
+		}
+
+		.teamsGrid * {
+			z-index: 25;
+		}
+
+		.scoresGrid {
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 1fr;
+			align-items: center;
+			justify-items: center;
+			position: absolute;
+			right: 0;
+			top: 5px;
+			height: 90px;
+			width: 55px;
+		}
+
+		.teamsGrid fitted-text {
+			font-size: 2.6em;
+			font-weight: 700;
+			color: #222;
+			width: 335px;
+		}
+
+		.scoresGrid fitted-text {
+			color: #444;
+			font-size: 3em;
+			font-weight: 700;
+			margin-top: -5px;
+			font-family: 'Montserrat';
+		}
+
+		.teamColorIndics {
+			height: 100px;
+			width: 35px;
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 1fr;
+			position: absolute;
+			top: 5px;
+			left: 8px;
+			opacity: 0.75;
+			align-items: center;
+		}
+
+		.teamColorIndics * {
+			z-index: 7;
+			border-radius: 10px;
+			width: 35px;
+			height: 35px;
+		}
+
+		.flavorTextContainer {
+			background-color: white;
+			padding: 3px 25px;
+			border: 5px solid rgba(79,152,202,1);
+			border-radius: 10px;
+			margin: 0 auto;
+		}
+
+		.flavorTextContainer fitted-text {
+			font-size: 1.75em;
+			font-weight: 700;
+		}
+
+		.flavorTextWrapper {
+			display: flex;
+			justify-content: center;
+			width: 1920px;
+			position: absolute;
+			bottom: 10px;
+			left: 0;
 		}
 	</style>
 </head>
 <body>
-	<p>
-		Hello, I'm one of the graphics in your bundle!
-		I'm where you put the graphics you want to run in your broadcast software!
-	</p>
-
-	<p>To edit me, open "<span id="path" class="monospace"></span>" in your favorite text editor or IDE.</p>
-
-	<p>You can use any libraries, frameworks, and tools you want. There are no limits.</p>
-
-	<p>Visit <a href="https://nodecg.com" target="_blank" rel="noopener">https://nodecg.com</a> for full documentation.</p>
-
-	<p>Have fun!</p>
-
-	<script>
-		document.getElementById('path').textContent = `nodecg${window.location.pathname}`;
-
-		// You can access the NodeCG api anytime from the `window.nodecg` object
-		// Or just `nodecg` for short. Like this!:
-		nodecg.log.info('Here\'s an example of using NodeCG\'s logging API!');
-	</script>
+	<div class="scWrapper">
+		<div class="scBorder"></div>
+		<div class="scBackground"></div>
+		<div class="scoreboard">
+			<div class="teamsGrid">
+				<fitted-text text="" max-width="335" id="teamAName"></fitted-text>
+				<fitted-text text="" max-width="335" id="teamBName"></fitted-text>
+			</div>
+			<div class="teamColorIndics">
+				<div class="teamColorDisplay" id="teamAColorDisplay"></div>
+				<div class="teamColorDisplay" id="teamBColorDisplay"></div>
+			</div>
+			<div class="scoresGrid">
+				<fitted-text text="0" align="center" id="teamAScoreDisplay" max-width="40"></fitted-text>
+				<fitted-text text="0" align="center" id="teamBScoreDisplay" max-width="40"></fitted-text>
+			</div>
+		</div>
+	</div>
+	<div class="flavorTextWrapper">
+		<div class="flavorTextContainer">
+			<fitted-text align="center" max-width="500" id="flavorTextDisplay" text="yeah!"></fitted-text>
+		</div>
+	</div>
+	<script src="../node_modules/gsap/dist/gsap.js"></script>
+	<script src="scripts/fitted-text.js"></script>
+	<script src="scripts/main.js"></script>
 </body>
 </html>
