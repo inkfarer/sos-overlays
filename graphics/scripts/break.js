@@ -451,7 +451,11 @@ window.addEventListener('load', () => {
 	NodeCG.waitForReplicants(mapWinners, SBData).then(() => {
 		mapWinners.on('change', (newValue, oldValue) => {
 			setWinners(newValue);
-		});	
+		});
+		
+		SBData.on('change', newValue => {
+			setWinners(mapWinners.value);
+		});
 	});
 });
 
