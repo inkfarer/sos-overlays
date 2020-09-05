@@ -161,12 +161,19 @@ const nowPlayingManual = nodecg.Replicant('nowPlayingManual', {
 });
 const mSongEnabled = nodecg.Replicant('mSongEnabled', {defaultValue: false});
 
-function getSongNameString(rep) {
-	if (rep.artist === '' || rep.artist === undefined) { return rep.song; }
-	else if (rep.song === '' || rep.song === undefined) { return rep.artist; }
+function checkStringEmptyOrUndef(string) {
+	string = String(string);
+	return (string === 'undefined' || string === '');
+}
 
-	if (rep.artist === '' || rep.artist === undefined && rep.song === '' || rep.song === undefined) {return 'No song is playing.'}
-	else { return rep.artist + ' - ' + rep.song; }	
+function getSongNameString(rep) {
+	console.log(rep);
+	if (checkStringEmptyOrUndef(rep.artist) && checkStringEmptyOrUndef(rep.song)) {return 'No song is playing.'}
+
+	if (checkStringEmptyOrUndef(rep.artist)) { return rep.song; }
+	else if (checkStringEmptyOrUndef(rep.song)) { return rep.artist; }
+
+	return rep.artist + ' - ' + rep.song;
 }
 
 NodeCG.waitForReplicants(nowPlaying, nowPlayingManual, mSongEnabled).then(() => {
