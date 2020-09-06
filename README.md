@@ -4,12 +4,12 @@ A [NodeCG](http://github.com/nodecg/nodecg) bundle.
 
 ## Screenshots
 
-* [Scoreboard (Main scene)](https://i.imgur.com/LBs1cyS.png)
-* [Break screen](https://i.imgur.com/N2joHF9.png)
-* [Upcoming teams](https://i.imgur.com/Q7laPh2.png)
-* [Upcoming stages](https://i.imgur.com/hadGiZY.jpg)
-* [Dashboard 1 (Setup)](https://i.imgur.com/BYyIjFK.png)
-* [Dashboard 2 (Live controls)](https://i.imgur.com/Vbsh79Z.png)
+* [Scoreboard (Main scene)](https://inkfarer.com/img/ut-1.png)
+* [Break screen](https://inkfarer.com/img/ut-2.png)
+* [Upcoming teams](https://inkfarer.com/img/ut-3.png)
+* [Upcoming stages](https://inkfarer.com/img/ut-4.png)
+* [Dashboard 1 (Setup)](https://inkfarer.com/img/ut-dashboard2.png)
+* [Dashboard 2 (Live controls)](https://inkfarer.com/img/ut-dashboard1.png)
 
 ## Install
 
