@@ -7,7 +7,7 @@ currentBreakScene.on('change', (newValue, oldValue) => {
 	var animDuration = 1;
 
 	if (oldValue === 'maps' && newValue === 'nextUp' || oldValue === 'nextUp' && newValue === 'maps') {
-		animDuration = 2;
+		animDuration = 1.5;
 	}
 
 	switch(newValue) {
