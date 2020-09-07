@@ -4,12 +4,7 @@ A [NodeCG](http://github.com/nodecg/nodecg) bundle.
 
 ## Screenshots
 
-* [Scoreboard (Main scene)](https://inkfarer.com/img/ut-1.png)
-* [Break screen](https://inkfarer.com/img/ut-2.png)
-* [Upcoming teams](https://inkfarer.com/img/ut-3.png)
-* [Upcoming stages](https://inkfarer.com/img/ut-4.png)
-* [Dashboard 1 (Setup)](https://inkfarer.com/img/ut-dashboard2.png)
-* [Dashboard 2 (Live controls)](https://inkfarer.com/img/ut-dashboard1.png)
+To be added
 
 ## Install
 

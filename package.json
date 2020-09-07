@@ -1,7 +1,7 @@
 {
-"name": "unnamed-tourney-overlays",
+"name": "sos-overlays",
 "version": "0.0.0",
-"description": "Overlays for a fun one-off Splatoon tournament",
+"description": "Overlays Swim or Sink, a weekly Splatoon tournament.",
 "homepage": "",
 "author": {
 	"name": "inkfarer",
@@ -26,7 +26,7 @@
 			"title": "Scoring",
 			"width": 2,
 			"file": "scoring.html",
-			"workspace": "unnamed",
+			"workspace": "sos",
 			"headerColor": "#262F40"
 		},
 		{
@@ -34,7 +34,7 @@
 			"title": "Music",
 			"width": 3,
 			"file": "music.html",
-			"workspace": "unnamed",
+			"workspace": "sos",
 			"headerColor": "#262F40"
 		},
 		{
@@ -42,7 +42,7 @@
 			"title": "Break Screen",
 			"width": 2,
 			"file": "breakScreen.html",
-			"workspace": "unnamed",
+			"workspace": "sos",
 			"headerColor": "#262F40"
 		},
 		{
@@ -50,7 +50,7 @@
 			"title": "Map Winners",
 			"width": 4,
 			"file": "mapWinners.html",
-			"workspace": "unnamed",
+			"workspace": "sos",
 			"headerColor": "#262F40"
 		},
 		{
@@ -58,7 +58,7 @@
 			"title": "Import tournament data",
 			"width": 2,
 			"file": "tourneyImport.html",
-			"workspace": "unnamed setup",
+			"workspace": "sos setup",
 			"headerColor": "#262F40"
 		},
 		{
@@ -66,7 +66,7 @@
 			"title": "Map Lists",
 			"width": 6,
 			"file": "mapLists.html",
-			"workspace": "unnamed setup",
+			"workspace": "sos setup",
 			"headerColor": "#262F40"
 		}
 	],
