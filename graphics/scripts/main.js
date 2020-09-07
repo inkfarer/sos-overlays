@@ -49,6 +49,8 @@ SBData.on('change', newValue => {
 
 	gsap.to('#teamAColor', {duration: 0.5, backgroundColor: colorNameToHex[newValue.teamAColor]});
 	gsap.to('#teamBColor', {duration: 0.5, backgroundColor: colorNameToHex[newValue.teamBcolor]});
+
+	document.querySelector('.sbFlavorTextBG fitted-text').setAttribute('text', newValue.flavorText);
 });
 
 // Show/hide scoreboard
