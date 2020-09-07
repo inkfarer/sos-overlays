@@ -1,201 +1,100 @@
-const tourneyData = nodecg.Replicant('tourneyData', {
+const battlefyData = nodecg.Replicant('tourneyData', {
 	defaultValue: [
-		{tourneySlug: "none", tourneyName: 'none'},
+		{tourneyId: "none"},
 		{
 			name: "Placeholder Team 1",
+			logoUrl: "",
 			players: [
-				{name:"You should fix this before going live."}
+				{name:"You should fix this before going live.", username: "You should fix this before going live."}
 			]
 		},
 		{
 			name: "Placeholder Team 2",
+			logoUrl: "",
 			players: [
-				{name:"You should fix this before going live."}
+				{name:"You should fix this before going live.", username: "You should fix this before going live."}
 			]
 		}
 	]
 });
 
-tourneyData.on('change', newValue => {
-	// fill out tourney info thing
-	if (newValue[0].tourneySlug && newValue[0].tourneyName) {
-		document.querySelector('#nowLoadedSlug').innerText = newValue[0].tourneySlug;
-		document.querySelector('#nowLoadedName').innerText = newValue[0].tourneyName;
-	}
-});
-
-const query = `query Entrants($slug: String!, $page: Int!, $perPage: Int!) {
-	tournament(slug: $slug) {
-	id
-	name
-	teams(query: {
-		page: $page
-		perPage: $perPage
-	}) {
-		pageInfo {
-		total
-		totalPages
-		}
-		nodes {
-		id
-		name
-		entrant {
-			id
-			participants {
-			id
-			gamerTag
-			}
-		}
-		}
-	}
-	}
-}`
-
-document.querySelector('#tourneySubmit').onclick = async () => {
+submitId.onclick = () => {
 	setStatusLoading();
-	var slug = document.querySelector('#tourneySlugInput').value;
-	let page = '1';
-	let perPage = '50';
-
-	if (!nodecg.bundleConfig || typeof nodecg.bundleConfig.smashgg === 'undefined') {
-		console.error('Api key is not defined in bundle config.');
-		setStatusFailure();
-		return;
-	}
-
-	let token = nodecg.bundleConfig.smashgg.apiKey;
-
-	fetch('https://api.smash.gg/gql/alpha', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Authorization': `Bearer ${token}`
-		},
-		body: JSON.stringify({
-			query,
-			variables: {slug, page, perPage}
-		})
-	})
-	.then(r => r.json())
-	.then(async (data) => {
-		// Create initial tournament array with tourney info
-		let tourneyInfo = [{
-			tourneySlug: slug, tourneyName: data.data.tournament.name
-		}];
-		
-		// Add info of teams to array
-		for (let i = 0; i < data.data.tournament.teams.nodes.length; i++) {
-			let teamPlayers = [];
-			const element = data.data.tournament.teams.nodes[i];
-
-			// if 'entrant' is null, the team's registration is incomplete... they are dead to us
-			if (!element.entrant) continue;
-
-			for (let j = 0; j < element.entrant.participants.length; j++) {
-				const teamPlayer = element.entrant.participants[j];
-				teamPlayers.push({
-					name: teamPlayer.gamerTag
-				});
-			}
-			tourneyInfo.push({
-				name: element.name,
-				players: teamPlayers,
-			});
-		}
-
-		// if there are more pages, add them to our data set
-		if (data.data.tournament.teams.pageInfo.totalPages > 1) {
-			console.log(data.data.tournament.teams.pageInfo.totalPages);
-			for (let i = 2; i <= data.data.tournament.teams.pageInfo.totalPages; i++) {
-				let pageInfo = await getAdditionalPage(i);
-				tourneyInfo = tourneyInfo.concat(pageInfo);
-			}
-		}
-
-		// we did it
-		tourneyData.value = tourneyInfo;
-		setStatusSuccess();
-	})
-	.catch(err => {
-		setStatusFailure();
-		console.error(err);
-	});
-};
-
-async function getAdditionalPage(page) {
-	var slug = document.querySelector('#tourneySlugInput').value;
-	let perPage = '50';
-	let token = nodecg.bundleConfig.smashgg.apiKey;
-
-	return new Promise((resolve, reject) => {
-		fetch('https://api.smash.gg/gql/alpha', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json',
-				'Authorization': `Bearer ${token}`
-			},
-			body: JSON.stringify({
-				query,
-				variables: {slug, page, perPage}
+	const requestURL = "https://cors-anywhere.herokuapp.com/https://dtmwra1jsgyb0.cloudfront.net/tournaments/" + tourneyIdInput.value + "/teams";
+	fetch(requestURL, {})
+			.then(response => {
+				return response.json();
 			})
-		})
-		.then(r => r.json())
-		.then(data => {
-			let pageInfo = [];
-			for (let i = 0; i < data.data.tournament.teams.nodes.length; i++) {
-				let teamPlayers = [];
-				const element = data.data.tournament.teams.nodes[i];
-
-				if (!element.entrant) continue;
-
-				for (let j = 0; j < element.entrant.participants.length; j++) {
-					const teamPlayer = element.entrant.participants[j];
-					teamPlayers.push({
-						name: teamPlayer.gamerTag
-					});
+			.then (data => {
+				if (data.error) {
+					setStatusFailure();
+					return;
 				}
-				pageInfo.push({
-					name: element.name,
-					players: teamPlayers,
-				});
-			}
-			resolve(pageInfo);
-		})
-		.catch(e => {
-			console.error(e);
-			reject(e)
-			setStatusFailure();
-		});
-	});
+				//console.log(data);
+				let teams = [{tourneyId: tourneyIdInput.value}];
+				//we don't care about most of this data
+				//so hey, let's save a kilobyte of memory while we're here
+				for (let i = 0; i < data.length; i++) {
+					const element = data[i];
+					var teamInfo = {
+						name: element.name,
+						logoUrl: element.persistentTeam.logoUrl,
+						players: []
+					}
+					for (let j = 0; j < element.players.length; j++) {
+						const elementPlayer = element.players[j];
+						let playerInfo = {
+							name: elementPlayer.inGameName,
+							//just in case...
+							//why does everybody have like, three names?
+							username : elementPlayer.username
+						};
+						teamInfo.players.push(playerInfo);
+					}
+					teams.push(teamInfo);
+				}
+				//console.log(teams);
+				battlefyData.value = teams;
+				setStatusSuccess();
+			})
+			.catch(err => {
+				console.log("err " + err);
+				setStatusFailure();
+			});
 }
 
-document.querySelector('#tourneySlugInput').addEventListener('input', (event) => {
-	if (event.target.value === tourneyData.value[0].tourneySlug) {
+tourneyIdInput.addEventListener('input', (event) => {
+	//check for id matches - prevent unnecessary imports
+	if (event.target.value === battlefyData.value[0].tourneyId) {
 		loadedDisplay.style.backgroundColor = "var(--green)";
 	} else {
 		loadedDisplay.style.backgroundColor = "#181E29";
 	}
 })
 
+battlefyData.on('change', (newValue) => {
+	//console.log(newValue);
+	if (newValue[0].tourneyId) {
+		nowLoaded.innerText = newValue[0].tourneyId;
+	} else {
+		nowLoaded.innerText = "none";
+	}
+})
+
 function setStatusLoading() {
-	let status = document.querySelector('#submitStatus');
-	status.style.backgroundColor = "var(--yellow)";
-	status.style.color = "#000";
-	status.innerText = "LOADING";
+	submitStatus.style.backgroundColor = "var(--yellow)";
+	submitStatus.style.color = "#000";
+	submitStatus.innerText = "LOADING";
 }
 
 function setStatusSuccess() {
-	let status = document.querySelector('#submitStatus');
-	status.style.backgroundColor = "var(--green)";
-	status.style.color = "#fff";
-	status.innerText = "SUCCESS";
+	submitStatus.style.backgroundColor = "var(--green)";
+	submitStatus.style.color = "#fff";
+	submitStatus.innerText = "SUCCESS";
 }
 
 function setStatusFailure() {
-	let status = document.querySelector('#submitStatus');
-	status.style.backgroundColor = "var(--red)";
-	status.style.color = "#fff";
-	status.innerText = "FAIL";
+	submitStatus.style.backgroundColor = "var(--red)";
+	submitStatus.style.color = "#fff";
+	submitStatus.innerText = "FAIL";
 }
