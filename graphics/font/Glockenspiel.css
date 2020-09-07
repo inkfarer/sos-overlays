@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Glockenspiel';
+    src: url('Glockenspiel.woff2') format('woff2'),
+        url('Glockenspiel.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
