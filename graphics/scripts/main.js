@@ -6,8 +6,8 @@ const teamScores = nodecg.Replicant('teamScores', {defaultValue: {
 }});
 
 teamScores.on('change', newValue => {
-	teamAScoreDisplay.setAttribute('text', (newValue.teamA === '') ? '0' : newValue.teamA);
-	teamBScoreDisplay.setAttribute('text', (newValue.teamB === '') ? '0' : newValue.teamB);
+	document.querySelector('#teamAScore').setAttribute('text', newValue.teamA);
+	document.querySelector('#teamBScore').setAttribute('text', newValue.teamB);
 });
 
 // Scoreboard data
@@ -44,29 +44,13 @@ const SBData = nodecg.Replicant('SBData', {defaultValue: {
 }});
 
 SBData.on('change', newValue => {
-	teamAName.setAttribute('text', newValue.teamAInfo.name);
-	teamBName.setAttribute('text', newValue.teamBInfo.name);
+	document.querySelector('#teamAName').setAttribute('text', newValue.teamAInfo.name);
+	document.querySelector('#teamBName').setAttribute('text', newValue.teamBInfo.name);
 
-	gsap.to('#teamAColorDisplay', {backgroundColor: colorNameToHex[newValue.teamAColor]});
-	gsap.to('#teamBColorDisplay', {backgroundColor: colorNameToHex[newValue.teamBcolor]});
-
-	flavorTextDisplay.setAttribute('text', newValue.flavorText);
+	gsap.to('#teamAColor', {duration: 0.5, backgroundColor: colorNameToHex[newValue.teamAColor]});
+	gsap.to('#teamBColor', {duration: 0.5, backgroundColor: colorNameToHex[newValue.teamBcolor]});
 });
 
 // Show/hide scoreboard
-const SBShown = nodecg.Replicant('SBShown', {defaultValue: true});
 
-SBShown.on('change', newValue => {
-	var sbTop, flavorBottom, ease;
-	if (newValue) {
-		sbTop = 40;
-		flavorBottom = 10;
-		ease = 'power2.out';
-	} else {
-		sbTop = -135;
-		flavorBottom = -50;
-		ease = 'power2.in';
-	}
-	gsap.to('.flavorTextWrapper', {bottom: flavorBottom, ease: ease});
-	gsap.to('.scWrapper', {top: sbTop, ease: ease});
-});
+const SBShown = nodecg.Replicant('SBShown', {defaultValue: true});

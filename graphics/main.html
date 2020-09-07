@@ -3,18 +3,152 @@
 <head>
 	<meta charset="UTF-8">
 	<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
 	<style>
 		body {
-			font-family: 'Dosis', 'Kosugi Maru';
+			font-family: 'Dosis', 'Kosugi Maru', 'Roboto';
 			width: 1920px;
 			height: 1080px;
 			overflow: hidden;
 		}
+
+		.sbWrapper {
+			position: absolute;
+			top: 40px;
+            left: 110px;
+            height: 140px;
+            width: 300px;
+		}
+
+		.sbBackground {
+			position: absolute;
+			top: 0px;
+			height: 90px;
+			width: 300px;
+			background-color:#262E47;
+			border-radius: 3px 3px 0px 0px;
+			display: grid;
+			grid-template-columns: 6fr 1fr;
+			grid-template-rows: 1fr 1px 1fr;
+			grid-template-areas: "a b" "c c" "d e";
+			align-items: center;
+		}
+
+		.colorContainer {
+			width: 30px;
+			height: 89px;
+			gap: 4px;
+			position: absolute;
+			right: 43px;
+			top: 1px;
+			display: grid;
+			grid-template-rows: 1fr 1fr;
+			grid-template-columns: 1fr;
+		}
+
+		.color {
+			margin: 6px;
+			border-radius: 3px;
+		}
+
+		.colorA {
+			background-color: #FB7B08;
+		}
+
+		.colorB {
+			background-color: #B51CCE;
+		}
+
+		.teamInfo {
+			display: flex;
+			margin-left: 10px;
+			color: white;
+			font-weight: 700;
+			font-size: 2em;
+		}
+
+		.score {
+			font-weight: 600;
+			font-size: 2em;
+			color: white;
+			text-align: center;
+			background-color: #181B34;
+			border-radius: 0 3px 0 0;
+			padding: 2px 4px;
+		}
+
+		.placeholder {
+			position: absolute;
+			width: 1920px;
+			height: 1080px;
+			top: 0;
+			z-index: -999;
+			display: none;
+		}
+
+		.sbBrandLine {
+			position: absolute;
+			bottom: 5px;
+			height: 45px;
+			width: 300px;
+			background-image: url('img/sos-sbtopbar.png');
+			background-size: fit;
+			background-repeat: no-repeat;
+			z-index: 10;
+		}
+
+		.sbFlavorTextBG {
+			position: absolute;
+			bottom: 16px;
+			right: 0;
+			height: 25px;
+			width: calc(100% - 72px);
+			background-color: #262E47;
+			border-radius: 3px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+
+		.sbFlavorTextBG fitted-text {
+			color: white;
+			text-align: center;
+			font-size: 1em;
+			font-weight: 600;
+		}
+
+		.sbLINE {
+			background-color: #b6f2dd;
+			grid-area: c;
+			height: 1px;
+		}
 	</style>
 </head>
 <body>
-	
+	<div class="sbWrapper">
+		<div class="sbBackground">
+			<div class="teamInfo">
+				<fitted-text align="left" text="Team A" max-width="210" id="teamAName"></fitted-text>
+			</div>
+			<fitted-text class="score" align="center" text="0" max-width="36" id="teamAScore"></fitted-text>
+			<div class="sbLINE"></div>
+			<div class="teamInfo">
+				<fitted-text align="left" text="Team B" max-width="212" id="teamBName"></fitted-text>
+			</div>
+			<fitted-text class="score" align="center" text="0" max-width="36" id="teamBScore"></fitted-text>
+		</div>
+		<div class="sbBrandLine"></div>
+		<div class="sbFlavorTextBG">
+			<fitted-text align="center" text="SWIM OR SWIM SEPT 2020 FINALS" max-width="210"></fitted-text>
+		</div>
+		<div class="colorContainer">
+			<div class="color" id="teamAColor"></div>
+			<div class="color" id="teamBColor"></div>
+		</div>
+	</div>
+	<img class="placeholder" src="img/placeholder.jpg">
 	<script src="../node_modules/gsap/dist/gsap.js"></script>
 	<script src="scripts/fitted-text.js"></script>
 	<script src="scripts/main.js"></script>
