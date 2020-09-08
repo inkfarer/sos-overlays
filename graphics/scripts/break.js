@@ -2,6 +2,38 @@
 
 const currentBreakScene = nodecg.Replicant('currenBreakScene', { defaultValue: 'mainScene' });
 
+currentBreakScene.on('change', newValue => {
+	switch (newValue) {
+		case 'mainScene':
+			showMainScene();
+			hideAltBG();
+			return;
+		case 'nextUp':
+			hideMainScene();
+			showAltBG();
+			return;
+		case 'maps':
+			hideMainScene();
+			showAltBG();
+	}
+});
+
+function hideMainScene() {
+	gsap.to(['.bgContentImage', '.bgWaterTexture', '.mainScene'], {duration: 1.5, top: -1280, ease: 'power2.inOut'});
+}
+
+function showMainScene() {
+	gsap.to(['.bgContentImage', '.bgWaterTexture', '.mainScene'], {duration: 1.5, top: 0, ease: 'power2.inOut'});
+}
+
+function showAltBG() {
+	gsap.to('.sceneAlt', {duration: 1.5, top: 0, ease: 'power2.inOut'});
+}
+
+function hideAltBG() {
+	gsap.to('.sceneAlt', {duration: 1.5, top: 1280, ease: 'power2.inOut'});
+}
+
 // Informative texts on main scene
 
 function measureText(text, fontFamily, fontSize, maxWidth) {
@@ -282,6 +314,43 @@ const SBData = nodecg.Replicant('SBData', {defaultValue: {
 	teamBcolor: 'Purple'
 }});
 
+function createMapListElems(maplist) {
+	let stagesGrid = document.querySelector('.stagesGrid');
+	gsap.to(stagesGrid, {duration: 0.5, opacity: 0, onComplete: function() {
+		stagesGrid.innerHTML = '';
+		stagesGrid.style.gridTemplateColumns = `repeat(${maplist.length - 1}, 1fr)`;
+		
+		let mapsHTML = '';
+		let elemWidth = '260';
+		if (maplist.length === 4) { elemWidth = '496'; }
+		else if (maplist.length === 6) { elemWidth = '260'; }
+		else if (maplist.length === 8) { elemWidth = '187'; }
+
+		for (let i = 1; i < maplist.length; i++) {
+			const element = maplist[i];
+			let elem = `
+			<div class="stageElem">
+				<div class="stageImage" style="background-image: url('img/stages/${mapNameToImagePath[element.map]}')">
+					<div class="stageWinner" id="stageWinner_${i}" style="opacity: 0"></div>
+				</div>
+				<div class="stageInfo">
+					<div class="stageMode">
+						<fitted-text text="${element.mode}" max-width="${elemWidth}" align="center"></fitted-text>
+					</div>
+					<div class="stageName">${element.map}</div>
+				</div>
+			</div>`
+
+			mapsHTML += elem;
+		}
+
+		stagesGrid.innerHTML = mapsHTML;
+		setWinners(mapWinners.value)		
+	}});
+
+	gsap.to(stagesGrid, {duration: 0.5, opacity: 1, delay: 0.5});
+}
+
 // returns true if there is a difference
 function compareMapLists(val1, val2) {
 	if (val1[0].id !== val2[0].id || val1[0].name !== val2[0].name) return true;
@@ -296,7 +365,7 @@ NodeCG.waitForReplicants(maplists, currentMaplistID, mapWinners).then(() => {
 	currentMaplistID.on('change', newValue => {
 		let maplist = maplists.value.filter(list => list[0].id == newValue)[0];
 
-		
+		createMapListElems(maplist);
 	});
 
 	maplists.on('change', (newValue, oldValue) => {
@@ -305,7 +374,7 @@ NodeCG.waitForReplicants(maplists, currentMaplistID, mapWinners).then(() => {
 		let oldCurrentList = oldValue.filter(list => list[0].id == currentMaplistID.value)[0];
 
 		if (compareMapLists(newCurrentList, oldCurrentList)) {
-			
+			createMapListElems(newCurrentList);
 		}
 	});
 });
@@ -318,6 +387,9 @@ window.addEventListener('load', () => {
 		
 		SBData.on('change', newValue => {
 			setWinners(mapWinners.value);
+
+			document.querySelector('#teamAName').setAttribute('text', newValue.teamAInfo.name);
+			document.querySelector('#teamBName').setAttribute('text', newValue.teamBInfo.name);
 		});
 	});
 });
@@ -326,15 +398,38 @@ function setWinners(val) {
 	for (let i = 0; i < val.length; i++) {
 		const element = val[i];
 		if (element === 0) {
-			
+			setWinner(i+1, '', false);
 		} else if (element === 1) {
-			
+			setWinner(i+1, SBData.value.teamAInfo.name, true);
 		} else {
-			
+			setWinner(i+1, SBData.value.teamBInfo.name, true);
 		}
 	}
 }
 
 function setWinner(index, name, shown) {
+	let winnerElem = document.querySelector(`#stageWinner_${index}`);
+	if (!winnerElem) return;
+	let opacity;
+
+	if (shown) { opacity = 1; }
+	else { opacity = 0 };
 	
+	if (shown) {
+		winnerElem.innerText = name;
+	}
+
+	gsap.to(winnerElem, {opacity: opacity, duration: 0.5});
 }
+
+// Scoreboard on maps page
+
+const teamScores = nodecg.Replicant('teamScores', {defaultValue: {
+    teamA: 0,
+    teamB: 0
+}});
+
+teamScores.on('change', newValue => {
+	document.querySelector('#teamAScore').setAttribute('text', newValue.teamA);
+	document.querySelector('#teamBScore').setAttribute('text', newValue.teamB);
+});

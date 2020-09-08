@@ -15,11 +15,15 @@
 		body {
 			font-family: 'Dosis', 'Kosugi Maru', 'Roboto';
 			font-weight: 700;
+			width: 1920px;
+			height: 1080px;
+			overflow: hidden;
+			background-color: #262E47;
 		}
 
 		.bgImage {
 			width: 1920px;
-			height: 1080px;
+			height: 1280px;
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -27,7 +31,7 @@
 
 		.bgContentImage {
 			z-index: -98;
-			background-image: url('img/soswim-breakBG-01.png');
+			background-image: url('img/soswim-breakBG.png');
 			background-size: cover;
 		}
 
@@ -45,15 +49,20 @@
 			position: absolute;
 			left: 0;
 			top: 0;
+			padding: 0;
+			margin: 0;
 		}
 
 		.scene {
 			position: absolute;
-			width: 1000px;
-			height: 100%;
+			width: 1920px;
+			height: 1080px;
 		}
 
-		.mainScene {
+		.scene.mainScene {
+			position: absolute;
+			width: 1000px !important;
+			height: 100% !important;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -149,6 +158,140 @@
 			z-index: -99999;
 			font-weight: 700;
 		}
+
+		.sceneAlt {
+			background-image: url('./img/sos-breakBG2.png');
+			margin-top: -3px;
+		}
+
+		.sceneTeams, .sceneStages {
+			opacity: 1;
+		}
+
+		.sceneStages {
+			display: flex;
+			justify-content: center;
+		}
+
+		.stagesGrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: 1fr;
+			height: 650px;
+			width: 1400px;
+			gap: 25px;
+			position: absolute;
+			bottom: 150px;
+		}
+
+		.stageImage {
+			background-image: url('img/stages/S2_Stage_MakoMart.png');
+			background-position: center center;
+			background-size: cover;
+			height: 500px;
+			border-radius: 5px;
+
+			position: relative;
+		}
+
+		.stageInfo {
+			text-align: center;
+		}
+
+		.stageMode {
+			margin: 0;
+			margin-top: 15px;
+			background-color: #BFFBE3;
+			border-radius: 5px 5px 0 0;
+			font-size: 2.25em;
+			font-weight: 700;
+			padding: 5px 0;
+			color: black;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.stageName {
+			background-color: #181B34;
+			padding: 5px 0;
+			color: white;
+			border-radius: 0 0 5px 5px;
+			font-size: 2.25em;
+			margin: 0;
+			height: 87px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0 5px 5px 5px;
+		}
+
+		.stageWinner {
+			width: 100%;
+			height: 100%;
+			background-color: rgba(34, 34, 34, 0.75);
+			border-radius: 5px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 2.25em;
+			text-align: center;
+			position: absolute;
+			left: 0;
+			top: 0;
+			overflow-wrap: anywhere;
+			overflow: hidden;
+		}
+
+		.stagesScoreboard {
+			width: 1000px;
+			height: 65px;
+
+			position: absolute;
+			top: 125px;
+
+			display: grid;
+			grid-template-rows: 1fr;
+			grid-template-columns: 5fr 1fr 5fr;
+		}
+
+		.teamNameBG {
+			background-color: #181B34;
+			flex-grow: 1;
+			display: flex;
+			align-items: center;
+		}
+
+		.teamNameBG fitted-text {
+			font-size: 2.5em;
+			color: white;
+			margin: 10px;
+		}
+
+		#teamANameBG {
+			justify-content: flex-end;
+		}
+
+		.teamScoreBG {
+			background-color: #BFFBE3;
+			width: 65px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.teamScoreBG fitted-text {
+			font-size: 3.5em;
+		}
+
+		.SBTeamWrapper {
+			border-radius: 5px;
+			display: flex;
+			flex-direction: row;
+			flex-grow: 1;
+			overflow: hidden;
+		}
 	</style>
 </head>
 <body>
@@ -187,9 +330,72 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="bgImage bgContentImage"></div>
 	<div class="bgImage bgWaterTexture"></div>
+
+	<div class="sceneWrapper">
+		<div class="scene sceneAlt">
+			<div class="scene sceneStages">
+				<div class="stagesScoreboard">
+					<div class="SBTeamWrapper">
+						<div class="teamNameBG" id="teamANameBG">
+							<fitted-text text="Team A" max-width="370" align="right" id="teamAName"></fitted-text>
+						</div>
+						<div class="teamScoreBG">
+							<fitted-text text="0" max-width="75" align="right" id="teamAScore"></fitted-text>
+						</div>
+					</div>
+					<div></div>
+					<div class="SBTeamWrapper">
+						<div class="teamScoreBG">
+							<fitted-text text="1" max-width="75" align="right" id="teamBScore"></fitted-text>
+						</div>
+						<div class="teamNameBG">
+							<fitted-text text="Team B" max-width="370" align="left" id="teamBName"></fitted-text>
+						</div>
+					</div>
+				</div>
+				<div class="stagesGrid">
+					<div class="stageElem">
+						<div class="stageImage" style="background-image: url('img/stages/S2_Stage_MakoMart.png')">
+							<div class="stageWinner" id="stageWinner_0" style="opacity: 1">poggers</div>
+						</div>
+						<div class="stageInfo">
+							<div class="stageMode">
+								<fitted-text text="Splat Zones" max-width="496" align="center"></fitted-text>
+							</div>
+							<div class="stageName">MakoMart</div>
+						</div>
+					</div>
+					<div class="stageElem">
+						<div class="stageImage" style="background-image: url('img/stages/S2_Stage_MakoMart.png')">
+							<div class="stageWinner" id="stageWinner_1" style="opacity: 0"></div>
+						</div>
+						<div class="stageInfo">
+							<div class="stageMode">
+								<fitted-text text="Splat Zones" max-width="496" align="center"></fitted-text>
+							</div>
+							<div class="stageName">MakoMart</div>
+						</div>
+					</div>
+					<div class="stageElem">
+						<div class="stageImage" style="background-image: url('img/stages/S2_Stage_MakoMart.png')">
+							<div class="stageWinner" id="stageWinner_2" style="opacity: 0"></div>
+						</div>
+						<div class="stageInfo">
+							<div class="stageMode">
+								<fitted-text text="Splat Zones" max-width="496" align="center"></fitted-text>
+							</div>
+							<div class="stageName">MakoMart</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="scene sceneTeams">
+
+			</div>
+		</div>
+	</div>
 	
 	<script src="../node_modules/gsap/dist/gsap.js"></script>
 	<script src="scripts/fitted-text.js"></script>
