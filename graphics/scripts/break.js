@@ -2,106 +2,6 @@
 
 const currentBreakScene = nodecg.Replicant('currenBreakScene', { defaultValue: 'mainScene' });
 
-currentBreakScene.on('change', (newValue, oldValue) => {
-	var bgMarginLeft, scenesLeft;
-	var animDuration = 1;
-
-	if (oldValue === 'maps' && newValue === 'nextUp' || oldValue === 'nextUp' && newValue === 'maps') {
-		animDuration = 1.5;
-	}
-
-	switch(newValue) {
-		case 'mainScene':
-			toggleTopBar(0, false);
-			bgMarginLeft = -2320;
-			scenesLeft = -1920;
-			break;
-		case 'nextUp':
-			toggleTopBar(0, true);
-			showTeamsScene(animDuration);
-			break;
-		case 'maps':
-			toggleTopBar(0, true);
-			bgMarginLeft = -200;
-			scenesLeft = 0;
-	}
-
-	gsap.to('.background', {left: bgMarginLeft, ease: 'power2.inOut', duration: animDuration});
-	gsap.to('.breakScenes', {left: scenesLeft, ease: 'power2.inOut', duration: animDuration});
-});
-
-function showTeamsScene(animDuration) {
-	let teamAPlayers = document.querySelectorAll('.nextTeamAPlayer');
-	let teamBPlayers = document.querySelectorAll('.nextTeamBPlayer');
-
-	for (let i = 0; i < teamAPlayers.length; i++) {
-		element = teamAPlayers[i];
-
-		element.style.opacity = '0';
-		gsap.to(element, {opacity: 1, duration: 0.25, delay: (i * 0.05) + (animDuration * 0.9)});
-	};
-
-	for (let j = 0; j < teamBPlayers.length; j++) {
-		element = teamBPlayers[j];
-
-		element.style.opacity = '0';
-		gsap.to(element, {opacity: 1, duration: 0.25, delay: (j * 0.05) + (animDuration * 0.9)});
-	};
-
-	var bgMarginLeft = -4440;
-	var scenesLeft = -3840;
-
-	gsap.to('.background', {left: bgMarginLeft, ease: 'power2.inOut', duration: animDuration});
-	gsap.to('.breakScenes', {left: scenesLeft, ease: 'power2.inOut', duration: animDuration});
-};
-
-// INSANE background animation
-// generate background elements
-
-for (let i = 1; i <= 6; i++) {
-	const bgTile = document.createElement('div');
-	bgTile.classList.add('bgTextContainer');
-
-	var tileTextValue, textLineClass, reverseTextLineClass;
-
-	if (i % 2 === 1) {
-		bgTile.classList.add('blueBgText');
-		tileTextValue = 'UNNAMED ';
-		textLineClass = 'textAnimUnnamed';
-		reverseTextLineClass = 'reverseTextAnimUnnamed';
-	} else {
-		bgTile.classList.add('greenBgText');
-		tileTextValue = 'TOURNAMENT ';
-		textLineClass = 'textAnimTournament';
-		reverseTextLineClass = 'reverseTextAnimTournament';
-	}
-
-	for (let j = 1; j <= 8; j++) {
-		const textLine = document.createElement('p');
-		textLine.innerText = tileTextValue.repeat(5);
-		if (j % 2 === 1) {
-			textLine.classList.add(textLineClass);
-		} else {
-			textLine.classList.add(reverseTextLineClass);
-		}
-		bgTile.appendChild(textLine);
-	}
-
-	document.querySelector('.background').appendChild(bgTile);
-}
-
-// animate
-
-let bgTextAnimTL = gsap.timeline({repeat: -1});
-
-const bgTextAnimDuration = 30;
-
-bgTextAnimTL.to('.textAnimUnnamed', {marginLeft: -300, ease: 'none', duration: bgTextAnimDuration}, 'woo');
-bgTextAnimTL.to('.reverseTextAnimUnnamed', {marginLeft: -700, ease: 'none', duration: bgTextAnimDuration}, 'woo');
-
-bgTextAnimTL.to('.textAnimTournament', {marginLeft: -960, ease: 'none', duration: bgTextAnimDuration}, 'woo');
-bgTextAnimTL.to('.reverseTextAnimTournament', {marginLeft: -40, ease: 'none', duration: bgTextAnimDuration}, 'woo');
-
 // Informative texts on main scene
 
 function measureText(text, fontFamily, fontSize, maxWidth) {
@@ -119,16 +19,17 @@ function measureText(text, fontFamily, fontSize, maxWidth) {
 }
 
 const breakMainTextProps = {
-	fontFamily: 'Roboto Condensed',
+	fontFamily: "'Dosis', 'Kosugi Maru', 'Roboto'",
 	fontSize: '45px',
 	maxWidth: 650
 }
 
-function setMainSceneText(text, elem) {
+function setMainSceneText(text, elem, hasIcon = true) {
 	let textWidth = measureText(text, breakMainTextProps.fontFamily, breakMainTextProps.fontSize, breakMainTextProps.maxWidth) + 20;
 
 	let textElem = elem.querySelector('fitted-text');
-	let bgElem = elem.querySelector('div.mainInfoBG');
+	let bgElem = elem.querySelector('div.infoBoxBG');
+	let bgWidth = hasIcon ? textWidth + 70 : textWidth;
 
 	if (textElem.getAttribute('text') == text) return;
 
@@ -137,19 +38,21 @@ function setMainSceneText(text, elem) {
 	textTL.to(textElem, {duration: 0.5, opacity: 0, onComplete: function() {
 		textElem.setAttribute('text', text);
 	}});
-	textTL.to([bgElem, elem], {duration: 0.5, width: textWidth, ease: 'power2.inOut'});
+	textTL.to(bgElem, {duration: 0.5, width: textWidth, ease: 'power2.inOut'}, 'a');
+	textTL.to(elem, {duration: 0.5, width: bgWidth, ease: 'power2.inOut'}, 'a');
 	textTL.to(textElem, {duration: 0.5, opacity: 1});
 }
 
 const mainFlavorText = nodecg.Replicant('mainFlavorText', { defaultValue: 'Be right back!' });
+
 mainFlavorText.on('change', newValue => {
-	setMainSceneText(newValue, document.querySelector('#mainFlavorText'));
-	setMainSceneText(newValue, document.querySelector('#breakTopLeftInfo'));
+	setMainSceneText(newValue, document.querySelector('#breakFlavorText'), false);
 });
 
 const casterNames = nodecg.Replicant('casterNames', { defaultValue: "We don't know." });
+
 casterNames.on('change', newValue => {
-	setMainSceneText(newValue, document.querySelector('#mainCasters'));
+	setMainSceneText(newValue, document.querySelector('#breakCasters'));
 });
 
 const nowPlaying = nodecg.Replicant('nowPlaying');
@@ -167,7 +70,6 @@ function checkStringEmptyOrUndef(string) {
 }
 
 function getSongNameString(rep) {
-	console.log(rep);
 	if (checkStringEmptyOrUndef(rep.artist) && checkStringEmptyOrUndef(rep.song)) {return 'No song is playing.'}
 
 	if (checkStringEmptyOrUndef(rep.artist)) { return rep.song; }
@@ -179,7 +81,7 @@ function getSongNameString(rep) {
 NodeCG.waitForReplicants(nowPlaying, nowPlayingManual, mSongEnabled).then(() => {
 	nowPlaying.on('change', newValue => {
 		if (!mSongEnabled.value) {
-			setMainSceneText(getSongNameString(newValue), document.querySelector('#mainMusic'));
+			setMainSceneText(getSongNameString(newValue), document.querySelector('#breakMusic'));
 		}
 	});
 	mSongEnabled.on('change', newValue => {
@@ -188,11 +90,32 @@ NodeCG.waitForReplicants(nowPlaying, nowPlayingManual, mSongEnabled).then(() => 
 		if (newValue) { value = nowPlayingManual.value; }
 		else { value = nowPlaying.value; }
 
-		setMainSceneText(getSongNameString(value), document.querySelector('#mainMusic'));
+		setMainSceneText(getSongNameString(value), document.querySelector('#breakMusic'));
 	});
 	nowPlayingManual.on('change', newValue => {
 		if (mSongEnabled.value) {
-			setMainSceneText(getSongNameString(newValue), document.querySelector('#mainMusic'));
+			setMainSceneText(getSongNameString(newValue), document.querySelector('#breakMusic'));
+		}
+	});
+});
+
+NodeCG.waitForReplicants(nowPlaying, nowPlayingManual, mSongEnabled).then(() => {
+	nowPlaying.on('change', newValue => {
+		if (!mSongEnabled.value) {
+			
+		}
+	});
+	mSongEnabled.on('change', newValue => {
+		var value;
+
+		if (newValue) { value = nowPlayingManual.value; }
+		else { value = nowPlaying.value; }
+
+
+	});
+	nowPlayingManual.on('change', newValue => {
+		if (mSongEnabled.value) {
+			
 		}
 	});
 });
@@ -218,7 +141,7 @@ var nextStageInterval = setInterval(() => {
 		} else {
 			newText = `Next round begins in ~${diffMinutes} minutes...`;
 		}
-		setMainSceneText(newText, document.querySelector('#mainTimer'));
+		setMainSceneText(newText, document.querySelector('#breakTimer'));
 	}
 }, 1000);
 var lastDiff;
@@ -232,48 +155,54 @@ nextStageTime.on('change', newValue => {
 	nextStageTimeObj = time;
 });
 
-// hiding stuff
+function getGridRows(showTimer, showMusic) {
+	let gridStyle = '4fr 1fr 1px 1fr';
 
-function hideMainElem(elem) {
-	let elemWidth = elem.getBoundingClientRect().width + 80;
-	elem = elem.parentNode;
-	elem.style.maxWidth = elemWidth + 'px';
-	gsap.to(elem, {opacity: 0, duration: 0.75, ease: 'power2.inOut'});
-	gsap.to(elem, {maxWidth: 0, duration: 0.75, ease: 'power2.inOut', delay: 0.6});
-}
+	if (showTimer) {
+		gridStyle += ' 1px 1fr';
+	} else {
+		gridStyle += ' 0px 0fr';
+	}
 
-function showMainElem(elem) {
-	// SCARY overcomplicated code that took me HOURS
-	// ensures that the animation is always smooth no matter how the element moves
-	let elemWidth = elem.getBoundingClientRect().width + 80;
-	let proxy = {progress: 0};
-	gsap.to(elem.parentNode, {opacity: 1, duration: 0.75, ease: 'power2.inOut', delay: 0.6});
-	gsap.to(proxy, {progress: 1, duration: 0.75, ease: 'power2.inOut', onComplete: function() {
-		elem.parentNode.style.maxWidth = '1000px';
-	}, onUpdate: function() {
-		elemWidth = elem.getBoundingClientRect().width + 80;
-		elem.parentNode.style.maxWidth = elemWidth * proxy.progress + 'px';
-	}});
+	if (showMusic) {
+		gridStyle += ' 1px 1fr';
+	} else {
+		gridStyle += ' 0px 0fr';
+	}
+
+	return gridStyle;
 }
 
 const NSTimerShown = nodecg.Replicant('NSTimerShown', {defaultValue: false});
 const musicShown = nodecg.Replicant('musicShown', { defaultValue: true });
 
-musicShown.on('change', newValue => {
-	if (newValue) {
-		showMainElem(document.querySelector('#mainMusic'));
+function animToggleInfo(showTimer, showMusic, infoElem, elemShown, divider) {
+	let gridStyle = getGridRows(showTimer, showMusic), gridDelay, elemOpacity, elemDelay;
+	if (elemShown) {
+		elemOpacity = 1;
+		elemDelay = 0.4;
+		gridDelay = 0;
 	} else {
-		hideMainElem(document.querySelector('#mainMusic'));
+		elemOpacity = 0;
+		elemDelay = 0;
+		gridDelay = 0.4;
 	}
-});
 
-NSTimerShown.on('change', newValue => {
-	if (newValue) {
-		showMainElem(document.querySelector('#mainTimer'));
-	} else {
-		hideMainElem(document.querySelector('#mainTimer'));
-	}
+	gsap.to(divider, {duration: 0.5, opacity: elemOpacity, ease: 'power2.inOut'});
+	gsap.to(infoElem, {duration: 0.5, opacity: elemOpacity, delay: elemDelay, ease: 'power2.inOut'});
+	gsap.to('.mainSceneGrid', {duration: 0.5, gridTemplateRows: gridStyle, ease: 'power2.inOut', delay: gridDelay});
+}
+
+NodeCG.waitForReplicants(NSTimerShown, musicShown).then(() => {
+	NSTimerShown.on('change', newValue => {
+		animToggleInfo(newValue, musicShown.value, '#breakTimer', newValue, '#timeDivider');
+	});
+
+	musicShown.on('change', newValue => {
+		animToggleInfo(NSTimerShown.value, newValue, '#breakMusic', newValue, '#musicDivider');
+	});
 });
+	
 
 // teams
 
@@ -291,38 +220,6 @@ const nextTeams = nodecg.Replicant('nextTeams', {defaultValue: {
 		]
 	}
 }});
-
-nextTeams.on('change', newValue => {
-	nextTeamAName.setAttribute('text', newValue.teamAInfo.name);
-	nextTeamBName.setAttribute('text', newValue.teamBInfo.name);
-
-	teamAplayersBG.innerHTML = '';
-	teamBplayersBG.innerHTML = '';
-
-	newValue.teamAInfo.players.forEach(player => {
-		const elem = createNextTeamPlayerElem(player.name, 'right', 'a');
-		teamAplayersBG.appendChild(elem);
-	});
-
-	newValue.teamBInfo.players.forEach(player => {
-		const elem = createNextTeamPlayerElem(player.name, 'left', 'b');
-		teamBplayersBG.appendChild(elem);
-	});
-});
-
-function createNextTeamPlayerElem(name, align, team) {
-	const elem = document.createElement('fitted-text');
-	elem.setAttribute('text', name);
-	elem.setAttribute('max-width', '435');
-	elem.setAttribute('align', align);
-	if (team === 'a') {
-		elem.classList.add('nextTeamAPlayer');
-	} else {
-		elem.classList.add('nextTeamBPlayer');
-	}
-
-	return elem;
-}
 
 // Stages
 
@@ -385,43 +282,6 @@ const SBData = nodecg.Replicant('SBData', {defaultValue: {
 	teamBcolor: 'Purple'
 }});
 
-function createMapListElems(maplist) {
-	let stagesGrid = document.querySelector('.stagesGrid');
-	gsap.to(stagesGrid, {duration: 0.5, opacity: 0, onComplete: function() {
-		stagesGrid.innerHTML = '';
-		stagesGrid.style.gridTemplateColumns = `repeat(${maplist.length - 1}, 1fr)`;
-		
-		let mapsHTML = '';
-		let elemWidth = '260';
-		if (maplist.length === 4) { elemWidth = '496'; }
-		else if (maplist.length === 6) { elemWidth = '260'; }
-		else if (maplist.length === 8) { elemWidth = '187'; }
-
-		for (let i = 1; i < maplist.length; i++) {
-			const element = maplist[i];
-			let elem = `
-			<div class="stageElem">
-				<div class="stageImage" style="background-image: url('img/stages/${mapNameToImagePath[element.map]}')">
-					<div class="stageWinner" id="stageWinner_${i}" style="opacity: 0"></div>
-				</div>
-				<div class="stageInfo">
-					<div class="stageMode">
-						<fitted-text text="${element.mode}" max-width="${elemWidth}" align="center"></fitted-text>
-					</div>
-					<div class="stageName">${element.map}</div>
-				</div>
-			</div>`
-
-			mapsHTML += elem;
-		}
-
-		stagesGrid.innerHTML = mapsHTML;
-		setWinners(mapWinners.value)		
-	}});
-
-	gsap.to(stagesGrid, {duration: 0.5, opacity: 1, delay: 0.5});
-}
-
 // returns true if there is a difference
 function compareMapLists(val1, val2) {
 	if (val1[0].id !== val2[0].id || val1[0].name !== val2[0].name) return true;
@@ -436,7 +296,7 @@ NodeCG.waitForReplicants(maplists, currentMaplistID, mapWinners).then(() => {
 	currentMaplistID.on('change', newValue => {
 		let maplist = maplists.value.filter(list => list[0].id == newValue)[0];
 
-		createMapListElems(maplist);
+		
 	});
 
 	maplists.on('change', (newValue, oldValue) => {
@@ -444,12 +304,8 @@ NodeCG.waitForReplicants(maplists, currentMaplistID, mapWinners).then(() => {
 		let newCurrentList = newValue.filter(list => list[0].id == currentMaplistID.value)[0];
 		let oldCurrentList = oldValue.filter(list => list[0].id == currentMaplistID.value)[0];
 
-		console.log(newCurrentList);
-		console.log(oldCurrentList);
-		console.log(compareMapLists(newCurrentList, oldCurrentList));
-
 		if (compareMapLists(newCurrentList, oldCurrentList)) {
-			createMapListElems(newCurrentList);
+			
 		}
 	});
 });
@@ -470,82 +326,15 @@ function setWinners(val) {
 	for (let i = 0; i < val.length; i++) {
 		const element = val[i];
 		if (element === 0) {
-			setWinner(i+1, '', false);
+			
 		} else if (element === 1) {
-			setWinner(i+1, SBData.value.teamAInfo.name, true);
+			
 		} else {
-			setWinner(i+1, SBData.value.teamBInfo.name, true);
+			
 		}
 	}
 }
 
 function setWinner(index, name, shown) {
-	let winnerElem = document.querySelector(`#stageWinner_${index}`);
-	if (!winnerElem) return;
-	let opacity;
-
-	if (shown) { opacity = 1; }
-	else { opacity = 0 };
 	
-	if (shown) {
-		winnerElem.innerText = name;
-	}
-
-	gsap.to(winnerElem, {opacity: opacity, duration: 0.5});
-}
-
-// top bar
-
-const topBarTL = gsap.timeline();
-
-function setTopBarTextLoop() {
-	for (let i = 0; i < 2; i++) {
-		if (i === 0) {
-			setTopBarText(casterNames.value, document.querySelector('#breakTopRightInfo'), 'img/microphone.svg', false);
-		} else if (i === 1) {
-			var songName;
-
-			if (mSongEnabled.value) {
-				songName = getSongNameString(nowPlayingManual.value);
-			} else {
-				songName = getSongNameString(nowPlaying.value);
-			}
-
-			setTopBarText(songName, document.querySelector('#breakTopRightInfo'), 'img/music.svg', true);
-		}
-	}
-}
-
-function setTopBarText(text, elem, icon, repeat) {
-	let textWidth = measureText(text, breakMainTextProps.fontFamily, breakMainTextProps.fontSize, 800) + 20;
-
-	let textElem = elem.querySelector('fitted-text');
-	let bgElem = elem.querySelector('div.mainInfoBG');
-	let iconElem = elem.querySelector('div.mainInfoIcon img');
-
-	topBarTL.add(gsap.to([textElem, iconElem], {duration: 0.5, opacity: 0, onComplete: function() {
-		textElem.setAttribute('text', text);
-		iconElem.src = icon;
-	}}, 'hide'))
-	.add(gsap.to([bgElem, elem], {duration: 0.5, width: textWidth, ease: 'power2.inOut'}))
-	.add(gsap.to([textElem, iconElem], {duration: 0.5, opacity: 1}, 'show'))
-	.add(gsap.to({}, 10, {}));
-	if (repeat) {
-		topBarTL.to({}, {duration: 0.01, onComplete: function() {
-			setTopBarTextLoop();
-		}});
-	}
-}
-
-NodeCG.waitForReplicants(nowPlaying, nowPlayingManual, mSongEnabled).then(() => {
-	setTopBarTextLoop();
-});
-
-function toggleTopBar(delay, shown) {
-	var styleTop;
-
-	if (shown) { styleTop = 15; }
-	else { styleTop = -100; }
-
-	gsap.to('.breakTopBar', {top: styleTop, duration: 0.5, ease: 'power2.inOut', delay: delay});
 }

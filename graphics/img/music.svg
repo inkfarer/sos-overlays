@@ -1,22 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100.62 104.52">
-  <defs>
-    <style>
-      .a, .b {
-        fill: none;
-        stroke: #444;
-        stroke-width: 19px;
-      }
-
-      .a {
-        stroke-linecap: round;
-      }
-
-      .b {
-        stroke-linecap: square;
-      }
-    </style>
-  </defs>
-  <title>music</title>
-  <polyline class="a" points="34.88 82.17 34.88 26.17 90.88 12.17 90.88 72.87"/>
-  <path class="b" d="M27.8,95.7c-6.9,2.5-13.8.8-15.5-3.7s2.5-10.3,9.4-12.8,13.7-.8,15.4,3.8S34.6,93.2,27.8,95.7Zm56-9.3c-6.8,2.5-13.7.8-15.4-3.8s2.5-10.3,9.4-12.8,13.7-.8,15.4,3.8S90.6,83.9,83.8,86.4Z" transform="translate(-2.42 -1.83)"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 100.6 104.5" style="enable-background:new 0 0 100.6 104.5;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#262E47;stroke-width:19;stroke-linecap:round;}
+	.st1{fill:none;stroke:#262E47;stroke-width:19;stroke-linecap:square;}
+</style>
+<title>music</title>
+<polyline class="st0" points="34.9,82.2 34.9,26.2 90.9,12.2 90.9,72.9 "/>
+<path class="st1" d="M25.4,93.9c-6.9,2.5-13.8,0.8-15.5-3.7s2.5-10.3,9.4-12.8s13.7-0.8,15.4,3.8C36.4,85.8,32.2,91.4,25.4,93.9z
+	 M81.4,84.6c-6.8,2.5-13.7,0.8-15.4-3.8s2.5-10.3,9.4-12.8s13.7-0.8,15.4,3.8S88.2,82.1,81.4,84.6z"/>
 </svg>
