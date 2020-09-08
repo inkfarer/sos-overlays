@@ -35,6 +35,14 @@
 			align-items: center;
 		}
 
+		.sbBGWrapper {
+			position: absolute;
+			top: 0px;
+			height: 90px;
+			width: 300px;
+			overflow: hidden;
+		}
+
 		.colorContainer {
 			width: 30px;
 			height: 89px;
@@ -96,6 +104,7 @@
 			background-size: fit;
 			background-repeat: no-repeat;
 			z-index: 10;
+			clip-path: polygon(0px 0px, 300px 0px, 300px 300px, 0px 300px);
 		}
 
 		.sbFlavorTextBG {
@@ -109,6 +118,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			opacity: 1;
 		}
 
 
@@ -128,24 +138,26 @@
 </head>
 <body>
 	<div class="sbWrapper">
-		<div class="sbBackground">
-			<div class="teamInfo">
-				<fitted-text align="left" text="Team A" max-width="210" id="teamAName"></fitted-text>
+		<div class="sbBGWrapper">
+			<div class="sbBackground">
+				<div class="teamInfo">
+					<fitted-text align="left" text="Team A" max-width="210" id="teamAName"></fitted-text>
+				</div>
+				<fitted-text class="score" align="center" text="-" max-width="36" id="teamAScore"></fitted-text>
+				<div class="sbLINE"></div>
+				<div class="teamInfo">
+					<fitted-text align="left" text="Team B" max-width="212" id="teamBName"></fitted-text>
+				</div>
+				<fitted-text class="score" align="center" text="-" max-width="36" id="teamBScore"></fitted-text>
+				<div class="colorContainer">
+					<div class="color" id="teamAColor"></div>
+					<div class="color" id="teamBColor"></div>
+				</div>
 			</div>
-			<fitted-text class="score" align="center" text="0" max-width="36" id="teamAScore"></fitted-text>
-			<div class="sbLINE"></div>
-			<div class="teamInfo">
-				<fitted-text align="left" text="Team B" max-width="212" id="teamBName"></fitted-text>
-			</div>
-			<fitted-text class="score" align="center" text="0" max-width="36" id="teamBScore"></fitted-text>
 		</div>
 		<div class="sbBrandLine"></div>
 		<div class="sbFlavorTextBG">
-			<fitted-text align="center" text="SWIM OR SWIM SEPT 2020 FINALS" max-width="210"></fitted-text>
-		</div>
-		<div class="colorContainer">
-			<div class="color" id="teamAColor"></div>
-			<div class="color" id="teamBColor"></div>
+			<fitted-text align="center" text="" max-width="210"></fitted-text>
 		</div>
 	</div>
 	<img class="placeholder" src="img/placeholder.jpg">

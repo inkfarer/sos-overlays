@@ -56,3 +56,26 @@ SBData.on('change', newValue => {
 // Show/hide scoreboard
 
 const SBShown = nodecg.Replicant('SBShown', {defaultValue: true});
+
+SBShown.on('change', newValue => {
+	var lineClipPath, lineDelay, bgTop, bgEase, bgDelay, flavorOpacity;
+	if (newValue) {
+		lineClipPath = 'polygon(0px 0px, 300px 0px, 300px 300px, 0px 300px)';
+		bgTop = '0px';
+		bgEase = 'power2.out';
+		bgDelay = 0.4;
+		lineDelay = 0;
+		flavorOpacity = 1;
+	} else {
+		lineClipPath = 'polygon(0px 0px, 0px 0px, 0px 300px, 0px 300px)';
+		bgTop = '90px';
+		bgEase = 'power2.in';
+		bgDelay = 0;
+		lineDelay = 0.4;
+		flavorOpacity = 0;
+	}
+
+	gsap.to('.sbBrandLine', {duration: 0.5, clipPath: lineClipPath, ease: 'power2.inOut', delay: lineDelay});
+	gsap.to('.sbBackground', {duration: 0.5, top: bgTop, ease: bgEase, delay: bgDelay});
+	gsap.to('.sbFlavorTextBG', {duration: 0.5, opacity: flavorOpacity, ease: 'power2.inOut', delay: lineDelay});
+});
