@@ -35,10 +35,22 @@
 			background-size: cover;
 		}
 
+		@keyframes water-filter {
+			/* Trying stuff out, ignore this :) */
+			0% {
+				filter: saturate(100%) hue-rotate(0deg) contrast(100%) invert(0);
+			}
+			50% {
+				filter: saturate(300%) hue-rotate(-45deg) contrast(150%) invert(0.25);
+			}
+			100% {
+				filter: saturate(100%) hue-rotate(0deg) contrast (100%) invert(0);
+			}
+		}
+
 		.bgWaterTexture {
 			z-index: -99;
-			background-image: url('img/sos-watertexture.png');
-			background-size: cover;
+			/*animation: water-filter 2s linear infinite;*/
 		}
 
 		.sceneWrapper {
@@ -76,8 +88,9 @@
 		}
 
 		.mainSceneGrid {
+			margin-bottom: 50px;
 			width: 900px;
-			height: 900px;
+			height: 850px;
 			display: grid;
 			grid-template-columns: 1fr;
 			grid-template-rows: 4fr 1fr 1px 1fr 1px 1fr 1px 1fr;
@@ -292,6 +305,12 @@
 			flex-grow: 1;
 			overflow: hidden;
 		}
+
+		.ipl-powered {
+			position: absolute;
+			bottom: 40px;
+			width: 400px;
+		}
 	</style>
 </head>
 <body>
@@ -328,10 +347,11 @@
 					</div>
 				</div>
 			</div>
+			<img src="img/ipl-powered-inkling.png" class="ipl-powered">
 		</div>
 	</div>
 	<div class="bgImage bgContentImage"></div>
-	<div class="bgImage bgWaterTexture"></div>
+	<img class="bgImage bgWaterTexture" src="img/sos-watertexture.png">
 
 	<div class="sceneWrapper">
 		<div class="scene sceneAlt">
@@ -356,39 +376,7 @@
 					</div>
 				</div>
 				<div class="stagesGrid">
-					<div class="stageElem">
-						<div class="stageImage" style="background-image: url('img/stages/S2_Stage_MakoMart.png')">
-							<div class="stageWinner" id="stageWinner_0" style="opacity: 1">poggers</div>
-						</div>
-						<div class="stageInfo">
-							<div class="stageMode">
-								<fitted-text text="Splat Zones" max-width="496" align="center"></fitted-text>
-							</div>
-							<div class="stageName">MakoMart</div>
-						</div>
-					</div>
-					<div class="stageElem">
-						<div class="stageImage" style="background-image: url('img/stages/S2_Stage_MakoMart.png')">
-							<div class="stageWinner" id="stageWinner_1" style="opacity: 0"></div>
-						</div>
-						<div class="stageInfo">
-							<div class="stageMode">
-								<fitted-text text="Splat Zones" max-width="496" align="center"></fitted-text>
-							</div>
-							<div class="stageName">MakoMart</div>
-						</div>
-					</div>
-					<div class="stageElem">
-						<div class="stageImage" style="background-image: url('img/stages/S2_Stage_MakoMart.png')">
-							<div class="stageWinner" id="stageWinner_2" style="opacity: 0"></div>
-						</div>
-						<div class="stageInfo">
-							<div class="stageMode">
-								<fitted-text text="Splat Zones" max-width="496" align="center"></fitted-text>
-							</div>
-							<div class="stageName">MakoMart</div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 			<div class="scene sceneTeams">
