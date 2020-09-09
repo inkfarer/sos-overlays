@@ -144,16 +144,11 @@ function disableWinButtons2(mapWinnerValue) {
     for (let i = 1; i < currentMaplist.length; i++) {
         const mapWinner = mapWinnerValue[i-1];
         const buttons = getButtons(i-1);
-        if (i > scoreSum) {
-            for (let y = 0; y < buttons.length; y++) {
-                buttons[y].disabled = true;
-            }
-        } else {
-            for (let y = 0; y < buttons.length; y++) {
-                buttons[y].disabled = false;
-            }
-            buttons[mapWinner].disabled = true;
+        for (let y = 0; y < buttons.length; y++) {
+            buttons[y].disabled = false;
         }
+        buttons[mapWinner].disabled = true;
+        
     }
 }
 
