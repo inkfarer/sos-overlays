@@ -319,25 +319,34 @@ function createMapListElems(maplist) {
 	gsap.to(stagesGrid, {duration: 0.5, opacity: 0, onComplete: function() {
 		stagesGrid.innerHTML = '';
 		stagesGrid.style.gridTemplateColumns = `repeat(${maplist.length - 1}, 1fr)`;
-		
+
 		let mapsHTML = '';
 		let elemWidth = '260';
+		let fontSize = '2.25em';
+
 		if (maplist.length === 4) { elemWidth = '496'; }
 		else if (maplist.length === 6) { elemWidth = '260'; }
 		else if (maplist.length === 8) { elemWidth = '187'; }
+
+		if (maplist.length === 8) {
+			stagesGrid.style.width = '1600px';
+			fontSize = '2em';
+		} else {
+			stagesGrid.style.width = '1400px';
+		}
 
 		for (let i = 1; i < maplist.length; i++) {
 			const element = maplist[i];
 			let elem = `
 			<div class="stageElem">
-				<div class="stageImage" style="background-image: url('img/stages/${mapNameToImagePath[element.map]}')">
+				<div class="stageImage" style="background-image: url('img/stages/${mapNameToImagePath[element.map]}');">
 					<div class="stageWinner" id="stageWinner_${i}" style="opacity: 0"></div>
 				</div>
 				<div class="stageInfo">
 					<div class="stageMode">
 						<fitted-text text="${element.mode}" max-width="${elemWidth}" align="center"></fitted-text>
 					</div>
-					<div class="stageName">${element.map}</div>
+					<div class="stageName" style="font-size: ${fontSize}">${element.map}</div>
 				</div>
 			</div>`
 
