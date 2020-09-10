@@ -1,4 +1,4 @@
-# unnamed-tourney-overlays
+# sos-overlays
 
 A [NodeCG](http://github.com/nodecg/nodecg) bundle.
 
@@ -12,15 +12,15 @@ To be added
 
 If you're using nodecg-cli:
 
-2.1. Run `nodecg install inkfarer/unnamed-tourney-overlays`.
+2.1. Run `nodecg install inkfarer/sos-overlays`.
 
 Otherwise:
 
-2.1. Clone unnamed-tourney-overlays to `nodecg/bundles/unnamed-tourney-overlays`.
+2.1. Clone sos-overlays to `nodecg/bundles/sos-overlays`.
 
-2.2. Install dependencies by running `npm install` in `nodecg/bundles/unnamed-tourney-overlays`.
+2.2. Install dependencies by running `npm install` in `nodecg/bundles/sos-overlays`.
 
-3.1. For last.fm and smash.gg integration to work, create the configuration file at `nodecg/cfg/unnamed-tourney-overlays.json`.
+3.1. For last.fm integration to work, create the configuration file at `nodecg/cfg/sos-overlays.json`.
 
 Example configuration file:
 ```
@@ -29,9 +29,6 @@ Example configuration file:
 		"targetAccount": "Your last.fm account name",
 		"apiKey": "your API key",
 		"secret": "your secret"
-	},
-	"smashgg": {
-		"apiKey": "Your Smash.gg API key"
 	}
 }
 ```
