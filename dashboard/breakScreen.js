@@ -198,5 +198,4 @@ function disableSceneButtons(currentScene) {
     } else if (currentScene === "maps") {
         showMaps.disabled = true;
     }
-    document.querySelector('#showNextUp').disabled = true;
 }

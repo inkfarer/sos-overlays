@@ -2,7 +2,7 @@
 
 const currentBreakScene = nodecg.Replicant('currenBreakScene', { defaultValue: 'mainScene' });
 
-currentBreakScene.on('change', newValue => {
+currentBreakScene.on('change', (newValue, oldValue) => {
 	switch (newValue) {
 		case 'mainScene':
 			showMainScene();
@@ -11,10 +11,16 @@ currentBreakScene.on('change', newValue => {
 		case 'nextUp':
 			hideMainScene();
 			showAltBG();
+			toggleMaps(false);
+			let animDelay = 0.6;
+			if (oldValue === 'mainScene') animDelay = 1.2;
+			toggleNextUp(true, animDelay);
 			return;
 		case 'maps':
 			hideMainScene();
 			showAltBG();
+			toggleMaps(true, 0.3);
+			toggleNextUp(false);
 	}
 });
 
@@ -32,6 +38,73 @@ function showAltBG() {
 
 function hideAltBG() {
 	gsap.to('.sceneAlt', {duration: 1.5, top: 1280, ease: 'power2.inOut'});
+}
+
+function toggleMaps(show, delay = 0) {
+	const stageElems = document.querySelectorAll('.stageElem');
+
+	let scoreboardDelay = 0;
+
+	let delays;
+	switch (stageElems.length) {
+		case 7:
+			delays = [0, 0.15, 0.3, 0.45, 0.3, 0.15, 0];
+			scoreboardDelay = 0.3;
+			break;
+		case 5:
+			delays = [0, 0.15, 0.3, 0.15, 0];
+			scoreboardDelay = 0.15;
+			break;
+		case 3:
+			delays = [0, 0.15, 0];
+			scoreboardDelay = 0.1;
+			break;
+	}
+
+	let opacity = 1;
+
+	if (show) {
+		if (delay !== 0) {
+			for (let i = 0; i < delays.length; i++) {
+				delays[i] += delay;
+			}
+			scoreboardDelay += delay;
+		}
+	} else {
+		opacity = 0;
+	}
+
+	gsap.to('.stagesScoreboard', {duration: 0.25, opacity: opacity, ease: 'power2.inOut', delay: scoreboardDelay});
+	if (stageElems.length === 0) return;
+
+	for (let i = 0; i < stageElems.length; i++) {
+		const element = stageElems[i];
+		gsap.to(element, {duration: 0.25, opacity: opacity, delay: delays[i], ease: 'power2.inOut'});
+	}
+}
+
+function toggleNextUp(show, delay = 0) {
+	if (show) {
+		gsap.to('.nextTeamInfoContainer', {duration: 0.25, opacity: 1, delay: delay});
+		let teamAPlayers = document.querySelectorAll('.nextTeamAPlayer');
+		let teamBPlayers = document.querySelectorAll('.nextTeamBPlayer');
+
+		for (let i = 0; i < teamAPlayers.length; i++) {
+			element = teamAPlayers[i];
+
+			element.style.opacity = '0';
+			gsap.to(element, {opacity: 1, duration: 0.25, delay: (i * 0.05) + (delay * 1.2)});
+		};
+
+		for (let j = 0; j < teamBPlayers.length; j++) {
+			element = teamBPlayers[j];
+
+			element.style.opacity = '0';
+			gsap.to(element, {opacity: 1, duration: 0.25, delay: (j * 0.05) + (delay * 1.2)});
+		};
+	} else {
+		gsap.to('.nextTeamInfoContainer', {duration: 0.25, opacity: 0});
+	}
 }
 
 // Informative texts on main scene
@@ -253,6 +326,38 @@ const nextTeams = nodecg.Replicant('nextTeams', {defaultValue: {
 	}
 }});
 
+nextTeams.on('change', newValue => {
+	nextTeamAName.setAttribute('text', newValue.teamAInfo.name);
+	nextTeamBName.setAttribute('text', newValue.teamBInfo.name);
+
+	teamAplayersBG.innerHTML = '';
+	teamBplayersBG.innerHTML = '';
+
+	newValue.teamAInfo.players.forEach(player => {
+		const elem = createNextTeamPlayerElem(player.name, 'right', 'a');
+		teamAplayersBG.appendChild(elem);
+	});
+
+	newValue.teamBInfo.players.forEach(player => {
+		const elem = createNextTeamPlayerElem(player.name, 'left', 'b');
+		teamBplayersBG.appendChild(elem);
+	});
+});
+
+function createNextTeamPlayerElem(name, align, team) {
+	const elem = document.createElement('fitted-text');
+	elem.setAttribute('text', name);
+	elem.setAttribute('max-width', '435');
+	elem.setAttribute('align', align);
+	if (team === 'a') {
+		elem.classList.add('nextTeamAPlayer');
+	} else {
+		elem.classList.add('nextTeamBPlayer');
+	}
+
+	return elem;
+}
+
 // Stages
 
 const mapNameToImagePath = {"Ancho-V Games": "S2_Stage_Ancho-V_Games.png",
@@ -323,6 +428,7 @@ function createMapListElems(maplist) {
 		let mapsHTML = '';
 		let elemWidth = '260';
 		let fontSize = '2.25em';
+		let elemOpacity = '1';
 
 		if (maplist.length === 4) { elemWidth = '496'; }
 		else if (maplist.length === 6) { elemWidth = '260'; }
@@ -335,10 +441,12 @@ function createMapListElems(maplist) {
 			stagesGrid.style.width = '1400px';
 		}
 
+		if (currentBreakScene.value === 'nextUp') { elemOpacity = '0'; }
+
 		for (let i = 1; i < maplist.length; i++) {
 			const element = maplist[i];
 			let elem = `
-			<div class="stageElem">
+			<div class="stageElem" style="opacity: ${elemOpacity}">
 				<div class="stageImage" style="background-image: url('img/stages/${mapNameToImagePath[element.map]}');">
 					<div class="stageWinner" id="stageWinner_${i}" style="opacity: 0"></div>
 				</div>

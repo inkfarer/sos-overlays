@@ -311,6 +311,79 @@
 			bottom: 40px;
 			width: 400px;
 		}
+
+		.sceneTeams {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.nextTitle {
+			text-align: center;
+			font-size: 8em;
+			color: white;
+			text-shadow: 8px 0 0 #E6E6E6;
+			position: absolute;
+			top: 100px;
+		}
+
+		.nextTeamInfoContainer {
+			width: 1300px;
+			height: 500px;
+
+			display: grid;
+			grid-template-rows: 1fr;
+			grid-template-columns: 2fr 1.5fr 2fr;
+		}
+
+		.nextVersus {
+			font-size: 10em;
+			color: white;
+			text-align: center;
+			align-self: center;
+		}
+
+		.nextTeamInfo {
+			border-radius: 15px;
+			width: 475px;
+		}
+
+		.nextTeamTitleBG {
+			background-color: #BFFBE3;
+			border-radius: 5px 5px 0 0;
+			height: 100px;
+			font-weight: 700;
+			font-size: 3.5em;
+			display: flex;
+			align-items: center;
+		}
+
+		.nextTeamTitleBG fitted-text {
+			margin: 0 20px;
+			margin-bottom: 25px;
+			color: black;
+		}
+
+		.nextLeftTitleBG {
+			justify-content: flex-end;
+		}
+
+		.nextTeamPlayersBG {
+			background-color: #181B34;
+			height: calc(100% - 75px);
+			margin-top: -25px;
+			border-radius: 5px;
+			padding-top: 10px;
+			height: 475px;
+			overflow: hidden;
+		}
+
+		.nextTeamPlayersBG fitted-text {
+			color: white;
+			font-size: 40px;
+			margin: 0 20px;
+			height: 52px;
+		}
 	</style>
 </head>
 <body>
@@ -356,7 +429,7 @@
 	<div class="sceneWrapper">
 		<div class="scene sceneAlt">
 			<div class="scene sceneStages">
-				<div class="stagesScoreboard">
+				<div class="stagesScoreboard" style="opacity: 0">
 					<div class="SBTeamWrapper">
 						<div class="teamNameBG" id="teamANameBG">
 							<fitted-text text="Team A" max-width="370" align="right" id="teamAName"></fitted-text>
@@ -380,7 +453,21 @@
 				</div>
 			</div>
 			<div class="scene sceneTeams">
-
+				<div class="nextTeamInfoContainer">
+					<div class="nextTeamInfo">
+						<div class="nextTeamTitleBG nextLeftTitleBG">
+							<fitted-text text="owo" align="right" id="nextTeamAName" max-width="435"></fitted-text>
+						</div>
+						<div class="nextTeamPlayersBG" id="teamAplayersBG"></div>
+					</div>
+					<div class="nextVersus">VS</div>
+					<div class="nextTeamInfo">
+						<div class="nextTeamTitleBG nextRightTitleBG">
+							<fitted-text text="owo" align="left" id="nextTeamBName" max-width="435"></fitted-text>
+						</div>
+						<div class="nextTeamPlayersBG" id="teamBplayersBG"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
