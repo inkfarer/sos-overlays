@@ -430,15 +430,17 @@ function createMapListElems(maplist) {
 		let fontSize = '2.25em';
 		let elemOpacity = '1';
 
-		if (maplist.length === 4) { elemWidth = '496'; }
-		else if (maplist.length === 6) { elemWidth = '260'; }
-		else if (maplist.length === 8) { elemWidth = '187'; }
-
-		if (maplist.length === 8) {
+		if (maplist.length === 4) {
+			elemWidth = '380';
+			stagesGrid.style.width = '1200px';
+		} else if (maplist.length === 6) {
+			elemWidth = '260';
+			stagesGrid.style.width = '1400px';
+			fontSize = '2.05em;'
+		} else if (maplist.length === 8) { 
+			elemWidth = '200';
 			stagesGrid.style.width = '1600px';
 			fontSize = '2em';
-		} else {
-			stagesGrid.style.width = '1400px';
 		}
 
 		if (currentBreakScene.value === 'nextUp') { elemOpacity = '0'; }
