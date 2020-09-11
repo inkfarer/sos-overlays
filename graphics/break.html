@@ -173,8 +173,12 @@
 		}
 
 		.sceneAlt {
-			background-image: url('./img/sos-breakBG2.png');
 			margin-top: -3px;
+		}
+
+		.altSceneBG {
+			background-image: url('./img/sos-breakBG2.png');
+			z-index: -90;
 		}
 
 		.sceneTeams, .sceneStages {
@@ -384,6 +388,19 @@
 			margin: 0 20px;
 			height: 52px;
 		}
+
+		.particles {
+			overflow: hidden;
+			z-index: -89;
+		}
+
+		.particle {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			background-image: url('img/particle2.png');
+			background-size: contain;
+		}
 	</style>
 </head>
 <body>
@@ -469,6 +486,8 @@
 					</div>
 				</div>
 			</div>
+			<div class="scene altSceneBG"></div>
+			<div class="scene particles"></div>
 		</div>
 	</div>
 	
