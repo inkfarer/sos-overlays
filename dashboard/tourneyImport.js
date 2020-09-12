@@ -20,7 +20,7 @@ const battlefyData = nodecg.Replicant('tourneyData', {
 
 submitId.onclick = () => {
 	setStatusLoading();
-	const requestURL = "https://cors-anywhere.herokuapp.com/https://dtmwra1jsgyb0.cloudfront.net/tournaments/" + tourneyIdInput.value + "/teams";
+	const requestURL = "https://dtmwra1jsgyb0.cloudfront.net/tournaments/" + tourneyIdInput.value + "/teams";
 	fetch(requestURL, {})
 			.then(response => {
 				return response.json();
@@ -37,17 +37,17 @@ submitId.onclick = () => {
 				for (let i = 0; i < data.length; i++) {
 					const element = data[i];
 					var teamInfo = {
-						name: element.name,
+						name: element.name.substring(0, 48),
 						logoUrl: element.persistentTeam.logoUrl,
 						players: []
 					}
 					for (let j = 0; j < element.players.length; j++) {
 						const elementPlayer = element.players[j];
 						let playerInfo = {
-							name: elementPlayer.inGameName,
+							name: elementPlayer.inGameName.substring(0, 48),
 							//just in case...
 							//why does everybody have like, three names?
-							username : elementPlayer.username
+							username : elementPlayer.username.substring(0, 48)
 						};
 						teamInfo.players.push(playerInfo);
 					}
