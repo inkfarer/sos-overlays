@@ -1,14 +1,24 @@
 "use strict";
+/*
+    FittedText
+
+    Horizontally squishes text to a specific width
+    A VanillaJS alternative to https://github.com/SupportClass/sc-fitted-text
+
+    Written by Inkfarer - https://inkfarer.com
+*/
 class FittedText extends HTMLElement {
     constructor() {
         super();
         this.fittedContent = document.createElement('div');
         this.maxWidth = -1;
         this.text = '';
+        this.useInnerHTML = false;
     }
     connectedCallback() {
         const align = this.getAttribute('align') || 'left';
         this.maxWidth = parseInt(this.getAttribute('max-width') || '-1');
+        this.useInnerHTML = (this.getAttribute('useInnerHTML') === '');
         this.innerHTML = '';
         this.setAttribute('style', this.removeLineBreaks(`
 			display: flex;
@@ -24,11 +34,12 @@ class FittedText extends HTMLElement {
         this.appendChild(this.fittedContent);
         this.setTransform();
     }
-    static get observedAttributes() { return ['text', 'max-width', 'align']; }
+    static get observedAttributes() { return ['text', 'max-width', 'align', 'useInnerHTML']; }
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
             case 'text':
-                this.fittedContent.innerText = newValue;
+                this.text = newValue;
+                this.setText();
                 this.setTransform();
                 return;
             case 'max-width':
@@ -43,6 +54,18 @@ class FittedText extends HTMLElement {
                 this.fittedContent.style.textAlign = newValue;
                 this.fittedContent.style.transformOrigin = `${newValue} center`;
                 return;
+            case 'useInnerHTML':
+                this.useInnerHTML = newValue;
+                this.setText();
+                return;
+        }
+    }
+    setText() {
+        if (this.useInnerHTML) {
+            this.fittedContent.innerHTML = this.text;
+        }
+        else {
+            this.fittedContent.innerText = this.text;
         }
     }
     setTransform() {
