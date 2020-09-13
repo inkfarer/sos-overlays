@@ -109,10 +109,14 @@ function toggleNextUp(show, delay = 0) {
 
 // Informative texts on main scene
 
-function measureText(text, fontFamily, fontSize, maxWidth) {
+function measureText(text, fontFamily, fontSize, maxWidth, useInnerHTML = false) {
 	const measurer = document.createElement('div');
 	measurer.classList.add('measurer');
-	measurer.innerText = text;
+	if (useInnerHTML) {
+		measurer.innerHTML = text;
+	} else {
+		measurer.innerText = text;
+	}
 	measurer.style.fontFamily = fontFamily;
 	measurer.style.fontSize = fontSize;
 
@@ -129,8 +133,8 @@ const breakMainTextProps = {
 	maxWidth: 650
 }
 
-function setMainSceneText(text, elem, hasIcon = true) {
-	let textWidth = measureText(text, breakMainTextProps.fontFamily, breakMainTextProps.fontSize, breakMainTextProps.maxWidth) + 20;
+function setMainSceneText(text, elem, hasIcon = true, useInnerHTML = false) {
+	let textWidth = measureText(text, breakMainTextProps.fontFamily, breakMainTextProps.fontSize, breakMainTextProps.maxWidth, useInnerHTML) + 20;
 
 	let textElem = elem.querySelector('fitted-text');
 	let bgElem = elem.querySelector('div.infoBoxBG');
@@ -157,7 +161,8 @@ mainFlavorText.on('change', newValue => {
 const casterNames = nodecg.Replicant('casterNames', { defaultValue: "We don't know." });
 
 casterNames.on('change', newValue => {
-	setMainSceneText(newValue, document.querySelector('#breakCasters'));
+	let finalElem = newValue.replaceAll('[[', '<span class="pronoun">').replaceAll(']]', '</span>');
+	setMainSceneText(finalElem, document.querySelector('#breakCasters'), true, true);
 });
 
 const nowPlaying = nodecg.Replicant('nowPlaying');
