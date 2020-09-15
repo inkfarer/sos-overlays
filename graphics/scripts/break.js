@@ -161,7 +161,7 @@ mainFlavorText.on('change', newValue => {
 const casterNames = nodecg.Replicant('casterNames', { defaultValue: "We don't know." });
 
 casterNames.on('change', newValue => {
-	let finalElem = newValue.replaceAll('[[', '<span class="pronoun">').replaceAll(']]', '</span>');
+	let finalElem = newValue.replace(/\[\[/g, '<span class="pronoun">').replace(/\]\]/g, '</span>');
 	setMainSceneText(finalElem, document.querySelector('#breakCasters'), true, true);
 });
 
