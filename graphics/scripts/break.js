@@ -3,6 +3,12 @@
 const currentBreakScene = nodecg.Replicant('currenBreakScene', { defaultValue: 'mainScene' });
 
 currentBreakScene.on('change', (newValue, oldValue) => {
+	let mapsDelay = 0.3;
+
+	if (oldValue === 'mainScene') {
+		mapsDelay = 1.2;
+	}
+
 	switch (newValue) {
 		case 'mainScene':
 			showMainScene();
@@ -19,7 +25,7 @@ currentBreakScene.on('change', (newValue, oldValue) => {
 		case 'maps':
 			hideMainScene();
 			showAltBG();
-			toggleMaps(true, 0.3);
+			toggleMaps(true, mapsDelay);
 			toggleNextUp(false);
 	}
 });
@@ -74,18 +80,20 @@ function toggleMaps(show, delay = 0) {
 		opacity = 0;
 	}
 
-	gsap.to('.stagesScoreboard', {duration: 0.25, opacity: opacity, ease: 'power2.inOut', delay: scoreboardDelay});
+	let opacFrom = opacity === 0 ? 1 : 0;
+
+	gsap.fromTo('.stagesScoreboard', {opacity: opacFrom}, {duration: 0.25, opacity: opacity, ease: 'power2.inOut', delay: scoreboardDelay});
 	if (stageElems.length === 0) return;
 
 	for (let i = 0; i < stageElems.length; i++) {
 		const element = stageElems[i];
-		gsap.to(element, {duration: 0.25, opacity: opacity, delay: delays[i], ease: 'power2.inOut'});
+		gsap.fromTo(element, {opacity: opacFrom}, {duration: 0.25, opacity: opacity, delay: delays[i], ease: 'power2.inOut'});
 	}
 }
 
 function toggleNextUp(show, delay = 0) {
 	if (show) {
-		gsap.to('.nextTeamInfoContainer', {duration: 0.25, opacity: 1, delay: delay});
+		gsap.fromTo('.nextTeamInfoContainer', {opacity: 0}, {duration: 0.25, opacity: 1, delay: delay});
 		let teamAPlayers = document.querySelectorAll('.nextTeamAPlayer');
 		let teamBPlayers = document.querySelectorAll('.nextTeamBPlayer');
 
