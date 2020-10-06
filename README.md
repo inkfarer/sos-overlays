@@ -25,7 +25,7 @@ Otherwise:
 
 2.2. Install dependencies by running `npm install` in `nodecg/bundles/sos-overlays` and `nodecg/bundles/ipl-overlay-controls`.
 
-3.1. For last.fm integration to work, create the configuration file at `nodecg/cfg/sos-overlays.json`.
+3.1. For last.fm integration to work, create the configuration file at `nodecg/cfg/ipl-overlay-controls.json`.
 
 Example configuration file:
 ```
