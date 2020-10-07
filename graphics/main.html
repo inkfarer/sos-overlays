@@ -135,6 +135,46 @@
 			grid-area: c;
 			height: 1px;
 		}
+
+		span.pronoun {
+			font-size: 20px;
+			background-color: #BFFBE3;
+			padding: 0 5px;
+			color: black;
+		}
+
+		.castersWrapper {
+			position: absolute;
+			top: 200px;
+            left: 50px;
+			opacity: 0;
+		}
+
+		.castersBG {
+			background-color: #262E47;
+			color: white;
+			font-size: 2em;
+			width: 235px;
+			padding: 5px 10px;
+			border-radius: 3px;
+			margin-left: 45px;
+		}
+
+		.castersIcon {
+			height: 100%;
+			width: 48px;
+			background: linear-gradient(135deg, #2f7385, #b6f2dd);
+			position: absolute;
+			z-index: -1;
+			border-radius: 3px 0 0 3px;
+			display: flex;
+			align-content: center;
+			align-items: center;
+		}
+
+		.castersIcon img {
+			height: 45px;
+		}
 	</style>
 </head>
 <body>
@@ -161,6 +201,14 @@
 			<fitted-text align="center" text="" max-width="210"></fitted-text>
 		</div>
 	</div>
+
+	<div class="castersWrapper">
+		<div class="castersIcon">
+			<img src="img/microphone.svg">
+		</div>
+		<div class="castersBG"></div>
+	</div>
+
 	<img class="placeholder" src="img/placeholder.jpg">
 	<script src="../node_modules/gsap/dist/gsap.js"></script>
 	<script src="scripts/fitted-text.js"></script>

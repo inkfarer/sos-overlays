@@ -47,3 +47,31 @@ SBShown.on('change', newValue => {
 	gsap.to('.sbBackground', {duration: 0.5, top: bgTop, ease: bgEase, delay: bgDelay});
 	gsap.to('.sbFlavorTextBG', {duration: 0.5, opacity: flavorOpacity, ease: 'power2.inOut', delay: lineDelay});
 });
+
+// Caster names
+
+const casterNames = nodecg.Replicant('casterNames', 'ipl-overlay-controls');
+
+casterNames.on('change', newValue => {
+	let nameArray = newValue.split('&');
+	let bg = document.querySelector('.castersBG');
+	bg.innerHTML = '';
+
+	nameArray.forEach(name => {
+		var elem = document.createElement('fitted-text');
+		var htmlText = name.replace(/\[\[/g, '<span class="pronoun">').replace(/\]\]/g, '</span>');
+		elem.setAttribute('text', htmlText);
+		elem.setAttribute('max-width', '230');
+		elem.setAttribute('align', 'left');
+		elem.setAttribute('useInnerHTML', '');
+		
+		bg.appendChild(elem);
+	});
+});
+
+// Caster name animation
+
+nodecg.listenFor('mainShowCasters', 'ipl-overlay-controls', () => {
+	gsap.fromTo('.castersWrapper', {opacity: 0, y: -25}, {duration: 0.5, y: 0, opacity: 1, ease: 'power2.out'});
+	gsap.to('.castersWrapper', {duration: 0.5, y: 25, opacity: 0, delay: 10.5, ease: 'power2.in'});
+});

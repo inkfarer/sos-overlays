@@ -18,7 +18,7 @@ class FittedText extends HTMLElement {
     connectedCallback() {
         const align = this.getAttribute('align') || 'left';
         this.maxWidth = parseInt(this.getAttribute('max-width') || '-1');
-        this.useInnerHTML = (this.getAttribute('useInnerHTML') === '');
+        this.useInnerHTML = (this.getAttribute('useinnerhtml') === '' || this.getAttribute('useinnerhtml') === 'true');
         this.innerHTML = '';
         this.setAttribute('style', this.removeLineBreaks(`
 			display: flex;
@@ -34,7 +34,7 @@ class FittedText extends HTMLElement {
         this.appendChild(this.fittedContent);
         this.setTransform();
     }
-    static get observedAttributes() { return ['text', 'max-width', 'align', 'useInnerHTML']; }
+    static get observedAttributes() { return ['text', 'max-width', 'align', 'useinnerhtml']; }
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
             case 'text':
@@ -54,8 +54,8 @@ class FittedText extends HTMLElement {
                 this.fittedContent.style.textAlign = newValue;
                 this.fittedContent.style.transformOrigin = `${newValue} center`;
                 return;
-            case 'useInnerHTML':
-                this.useInnerHTML = newValue;
+            case 'useinnerhtml':
+                this.useInnerHTML = (newValue === '' || newValue === 'true');
                 this.setText();
                 return;
         }
