@@ -27,6 +27,12 @@ currentBreakScene.on('change', (newValue, oldValue) => {
 			showAltBG();
 			toggleMaps(true, mapsDelay);
 			toggleNextUp(false);
+			return;
+		default:
+			// show main scene in case of an unknown scene
+			showMainScene();
+			hideAltBG();
+			return;
 	}
 });
 
