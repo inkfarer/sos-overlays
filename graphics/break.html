@@ -338,6 +338,8 @@
 			display: grid;
 			grid-template-rows: 1fr;
 			grid-template-columns: 2fr 1.5fr 2fr;
+
+			position: absolute;
 		}
 
 		.nextVersus {
@@ -387,6 +389,7 @@
 			font-size: 40px;
 			margin: 0 20px;
 			height: 52px;
+			z-index: 10;
 		}
 
 		.particles {
@@ -407,6 +410,26 @@
 			background-color: #BFFBE3;
 			padding: 0 5px;
 			color: black;
+		}
+
+		.teamImage {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+			top: 110px;
+            opacity: 0.25;
+            border-radius: 50%;
+            z-index: 5;
+            background-position: 50% 50%;
+            background-size: cover;
+        }
+
+		#teamAImage {
+			left: 40px;
+		}
+
+		#teamBImage {
+			right: 40px;
 		}
 	</style>
 </head>
@@ -482,6 +505,7 @@
 						<div class="nextTeamTitleBG nextLeftTitleBG">
 							<fitted-text text="owo" align="right" id="nextTeamAName" max-width="435"></fitted-text>
 						</div>
+						<div class="teamImage" id="teamAImage"></div>
 						<div class="nextTeamPlayersBG" id="teamAplayersBG"></div>
 					</div>
 					<div class="nextVersus">VS</div>
@@ -489,6 +513,7 @@
 						<div class="nextTeamTitleBG nextRightTitleBG">
 							<fitted-text text="owo" align="left" id="nextTeamBName" max-width="435"></fitted-text>
 						</div>
+						<div class="teamImage" id="teamBImage"></div>
 						<div class="nextTeamPlayersBG" id="teamBplayersBG"></div>
 					</div>
 				</div>

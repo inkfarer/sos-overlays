@@ -73,5 +73,5 @@ casterNames.on('change', newValue => {
 
 nodecg.listenFor('mainShowCasters', 'ipl-overlay-controls', () => {
 	gsap.fromTo('.castersWrapper', {opacity: 0, y: -25}, {duration: 0.5, y: 0, opacity: 1, ease: 'power2.out'});
-	gsap.to('.castersWrapper', {duration: 0.5, y: 25, opacity: 0, delay: 10.5, ease: 'power2.in'});
+	gsap.to('.castersWrapper', {duration: 0.5, y: 25, opacity: 0, delay: 15.5, ease: 'power2.in'});
 });

@@ -1,6 +1,6 @@
 // Scene switching
 
-const currentBreakScene = nodecg.Replicant('currenBreakScene', 'ipl-overlay-controls');
+const currentBreakScene = nodecg.Replicant('currentBreakScene', 'ipl-overlay-controls');
 
 currentBreakScene.on('change', (newValue, oldValue) => {
 	let mapsDelay = 0.3;
@@ -332,6 +332,9 @@ nextTeams.on('change', newValue => {
 		const elem = createNextTeamPlayerElem(player.name, 'left', 'b');
 		teamBplayersBG.appendChild(elem);
 	});
+
+	teamAImage.style.backgroundImage = `url(${newValue.teamAInfo.logoUrl})`;
+	teamBImage.style.backgroundImage = `url(${newValue.teamBInfo.logoUrl})`;
 });
 
 function createNextTeamPlayerElem(name, align, team) {
@@ -561,3 +564,12 @@ function makeParticleAnim(id) {
 function repeatParticleAnim(id) {
 	makeParticleAnim(id);
 }
+
+// Hide team image
+
+const teamImageHidden = nodecg.Replicant('teamImageHidden', 'ipl-overlay-controls');
+
+teamImageHidden.on('change', newValue => {
+	gsap.to('#teamAImage', {duration: 0.5, opacity: (newValue.teamA ? 0.25 : 0)});
+	gsap.to('#teamBImage', {duration: 0.5, opacity: (newValue.teamB ? 0.25 : 0)});
+});
