@@ -78,11 +78,10 @@ function createMapListElems(maplist) {
 }
 
 // returns true if there is a difference
-function compareMapLists(val1, val2) {
-	if (val1[0].id !== val2[0].id || val1[0].name !== val2[0].name) return true;
+function roundsDiffer(val1, val2) {
 	if (val1.length !== val2.length) return true;
-	for (let i = 1; i < val1.length; i++) {
-		if (val1[i].map !== val2[i].map || val1[i].mode !== val2[i].mode) return true;
+	for (let i = 0; i < val1.length; i++) {
+		if (val1[i].stage !== val2[i].stage || val1[i].mode !== val2[i].mode) return true;
 	}
 	return false;
 }
@@ -100,7 +99,8 @@ NodeCG.waitForReplicants(rounds, activeRound, gameWinners).then(() => {
 		let newCurrentList = newValue[activeRound.value]['games'];
 		let oldCurrentList = oldValue[activeRound.value]['games'];
 
-		if (compareMapLists(newCurrentList, oldCurrentList)) {
+		console.log(roundsDiffer(newCurrentList, oldCurrentList))
+		if (roundsDiffer(newCurrentList, oldCurrentList)) {
 			createMapListElems(newCurrentList);
 		}
 	});
