@@ -3,7 +3,7 @@
 activeBreakScene.on('change', (newValue, oldValue) => {
 	let mapsDelay = 0.3;
 
-	if (oldValue === 'mainScene') {
+	if (oldValue === 'main') {
 		mapsDelay = 1.2;
 	}
 
