@@ -37,7 +37,6 @@
   "license": "MIT",
   "dependencies": {
     "fitted-text": "^1.0.1",
-    "gsap": "^3.6.1",
-    "lastfm": "^0.9.3"
+    "gsap": "^3.6.1"
   }
 }
