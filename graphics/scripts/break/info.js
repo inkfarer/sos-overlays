@@ -52,7 +52,8 @@ casters.on('change', newValue => {
 	// Form new casters line from objects
 	Object.keys(newValue).forEach((item, index, arr) => {
 		const element = newValue[item];  // Get caster from object
-		if (index > 0){ finalElem += ` & ` }  // Adds & symbol between comms
+		if (index > 0 && index < (arr.length-1)){ finalElem += ` , ` }
+		else if(index > 0){ finalElem += ` & ` }
 		finalElem += `${element.twitter}<span class="pronoun">${element.pronouns}</span>`
 	});
 	setMainSceneText(finalElem, document.querySelector('#breakCasters'), true, true);
