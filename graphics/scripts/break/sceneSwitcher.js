@@ -17,7 +17,7 @@ activeBreakScene.on('change', (newValue, oldValue) => {
 			showAltBG();
 			toggleMaps(false);
 			let animDelay = 0.6;
-			if (oldValue === 'mainScene') animDelay = 1.2;
+			if (oldValue === 'main') animDelay = 1.2;
 			toggleNextUp(true, animDelay);
 			return;
 		case 'stages':
