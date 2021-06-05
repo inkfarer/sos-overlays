@@ -1,43 +1,43 @@
 {
-"name": "sos-overlays",
-"version": "0.0.0",
-"description": "Overlays Swim or Sink, a weekly Splatoon tournament.",
-"homepage": "",
-"author": {
-	"name": "inkfarer",
-	"email": "inkfarer@inkfarer.com",
-	"url": "https://inkfarer.com"
-},
-"files": [
-	"dashboard",
-	"graphics",
-	"extension.js",
-	"extension"
-],
-"keywords": [
-	"",
-	"nodecg-bundle"
-],
-"nodecg": {
-	"compatibleRange": "^1.1.1",
-	"graphics": [
-		{
-			"file": "main.html",
-			"width": 1920,
-			"height": 1080
-		},
-		{
-			"file": "break.html",
-			"width": 1920,
-			"height": 1080
-		}
-	]
-},
-"repository": "https://github.com/nodecg/nodecg.git",
-"license": "MIT",
-"dependencies": {
-  "fitted-text": "^1.0.1",
-	"gsap": "^3.4.2",
-	"lastfm": "^0.9.3"
-}
+	"name": "sos-overlays",
+	"version": "0.0.0",
+	"description": "Overlays Swim or Sink, a weekly Splatoon tournament.",
+	"homepage": "",
+	"author": {
+		"name": "inkfarer",
+		"email": "inkfarer@inkfarer.com",
+		"url": "https://inkfarer.com"
+	},
+	"files": [
+		"dashboard",
+		"graphics",
+		"extension.js",
+		"extension"
+	],
+	"keywords": [
+		"",
+		"nodecg-bundle"
+	],
+	"nodecg": {
+		"compatibleRange": "^1.1.1",
+		"graphics": [
+			{
+				"file": "main.html",
+				"width": 1920,
+				"height": 1080
+			},
+			{
+				"file": "break.html",
+				"width": 1920,
+				"height": 1080
+			}
+		]
+	},
+	"repository": "https://github.com/nodecg/nodecg.git",
+	"license": "MIT",
+	"dependencies": {
+		"fitted-text": "^1.0.1",
+		"gsap": "^3.6.1",
+		"lastfm": "^0.9.3"
+	}
 }
