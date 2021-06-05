@@ -164,6 +164,14 @@ span.pronoun {
 	align-items: center;
 }
 
+.castersBG > * > * {
+	position: absolute;
+}
+
+.castersBG > * {
+	height: 40px;
+}
+
 .castersIcon img {
 	height: 45px;
 }
