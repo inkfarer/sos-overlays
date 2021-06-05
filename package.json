@@ -36,6 +36,7 @@
 "repository": "https://github.com/nodecg/nodecg.git",
 "license": "MIT",
 "dependencies": {
+  "fitted-text": "^1.0.1",
 	"gsap": "^3.4.2",
 	"lastfm": "^0.9.3"
 }
