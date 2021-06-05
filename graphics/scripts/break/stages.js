@@ -37,14 +37,14 @@ function createMapListElems(maplist) {
 			let fontSize = '2.25em';
 			let elemOpacity = '1';
 
-			if (maplist.length === 4) {
+			if (maplist.length === 3) {
 				elemWidth = '380';
 				stagesGrid.style.width = '1200px';
-			} else if (maplist.length === 6) {
+			} else if (maplist.length === 5) {
 				elemWidth = '260';
 				stagesGrid.style.width = '1400px';
 				fontSize = '2.05em;'
-			} else if (maplist.length === 8) {
+			} else if (maplist.length === 7) {
 				elemWidth = '200';
 				stagesGrid.style.width = '1600px';
 				fontSize = '2em';
