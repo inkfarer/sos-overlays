@@ -1,0 +1,425 @@
+* {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+body {
+	font-family: 'Dosis', 'Kosugi Maru', 'Roboto';
+	font-weight: 700;
+	width: 1920px;
+	height: 1080px;
+	overflow: hidden;
+	background-color: #262E47;
+}
+
+.bgImage {
+	width: 1920px;
+	height: 1280px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.bgContentImage {
+	z-index: -98;
+	background-image: url('../../img/soswim-breakBG.png');
+	background-size: cover;
+}
+
+@keyframes water-filter {
+	/* Trying stuff out, ignore this :) */
+	0% {
+		filter: saturate(100%) hue-rotate(0deg) contrast(100%) invert(0);
+	}
+	50% {
+		filter: saturate(300%) hue-rotate(-45deg) contrast(150%) invert(0.25);
+	}
+	100% {
+		filter: saturate(100%) hue-rotate(0deg) contrast(100%) invert(0);
+	}
+}
+
+.bgWaterTexture {
+	z-index: -99;
+	/*animation: water-filter 2s linear infinite;*/
+}
+
+.sceneWrapper {
+	width: 1920px;
+	height: 1080px;
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding: 0;
+	margin: 0;
+}
+
+.scene {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+}
+
+.scene.mainScene {
+	position: absolute;
+	width: 1000px !important;
+	height: 100% !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.bigLogo {
+	height: 100%;
+	justify-self: center;
+	margin-top: -15px;
+	background: radial-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+.mainSceneGrid {
+	margin-bottom: 50px;
+	width: 900px;
+	height: 850px;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 4fr 1fr 1px 1fr 1px 1fr 1px 1fr;
+}
+
+.infoBox {
+	color: white;
+	font-weight: 700;
+	font-size: 2.5em;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	position: relative;
+
+	width: 223px;
+
+	justify-self: center;
+	align-self: center;
+
+	min-height: 0px;
+}
+
+.infoBox.noIcon {
+	width: 155px;
+}
+
+.infoBoxText {
+	z-index: 4;
+	margin-left: 10px;
+	font-size: 45px;
+	height: 68px;
+}
+
+.infoBoxIcon {
+	width: 48px;
+	height: 72px;
+	margin-top: 0px;
+	padding-left: 35px;
+	background-color: #BFFBE3;
+	position: absolute;
+	right: 0px;
+	top: 0;
+	border-radius: 0 5px 5px 0;
+	z-index: 1;
+}
+
+.infoBoxIcon img {
+	width: 50px;
+	margin-left: -12px;
+	margin-top: 9px;
+}
+
+.infoBoxBG {
+	background-color: #181B34;
+	border-bottom: 4px solid #BFFBE3;
+	border-radius: 5px;
+	height: 68px;
+	width: 155px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 3;
+}
+
+.dividerLine {
+	height: 2px;
+	width: 500px;
+	background-color: #BFFBE3;
+	justify-self: center;
+}
+
+.measurer {
+	position: absolute;
+	top: 1100px;
+	opacity: 0;
+	z-index: -99999;
+	font-weight: 700;
+}
+
+.sceneAlt {
+	margin-top: -3px;
+}
+
+.altSceneBG {
+	background-image: url('../../img/sos-breakBG2.png');
+	z-index: -90;
+}
+
+.sceneTeams, .sceneStages {
+	opacity: 1;
+}
+
+.sceneStages {
+	display: flex;
+	justify-content: center;
+}
+
+.stagesGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr;
+	height: 650px;
+	width: 1400px;
+	gap: 25px;
+	position: absolute;
+	bottom: 150px;
+}
+
+.stageImage {
+	background-image: url('../../img/stages/S2_Stage_MakoMart.png');
+	background-position: center center;
+	background-size: cover;
+	height: 500px;
+	border-radius: 5px;
+
+	position: relative;
+}
+
+.stageInfo {
+	text-align: center;
+}
+
+.stageMode {
+	margin: 0;
+	margin-top: 15px;
+	background-color: #BFFBE3;
+	border-radius: 5px 5px 0 0;
+	font-size: 2.25em;
+	font-weight: 700;
+	padding: 5px 0;
+	color: black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.stageName {
+	background-color: #181B34;
+	padding: 5px 0;
+	color: white;
+	border-radius: 0 0 5px 5px;
+	font-size: 2.25em;
+	margin: 0;
+	height: 87px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 5px 5px 5px;
+}
+
+.stageWinner {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(24, 27, 52, 0.75);
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 2.25em;
+	text-align: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	overflow-wrap: anywhere;
+	overflow: hidden;
+}
+
+.stagesScoreboard {
+	width: 1000px;
+	height: 65px;
+
+	position: absolute;
+	top: 125px;
+
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 5fr 1fr 5fr;
+}
+
+.teamNameBG {
+	background-color: #181B34;
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+}
+
+.teamNameBG fitted-text {
+	font-size: 2.5em;
+	color: white;
+	margin: 10px;
+}
+
+#teamANameBG {
+	justify-content: flex-end;
+}
+
+.teamScoreBG {
+	background-color: #BFFBE3;
+	width: 65px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.teamScoreBG fitted-text {
+	font-size: 3.5em;
+}
+
+.SBTeamWrapper {
+	border-radius: 5px;
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+	overflow: hidden;
+}
+
+.ipl-powered {
+	position: absolute;
+	bottom: 40px;
+	width: 400px;
+}
+
+.sceneTeams {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.nextTitle {
+	text-align: center;
+	font-size: 8em;
+	color: white;
+	text-shadow: 8px 0 0 #E6E6E6;
+	position: absolute;
+	top: 100px;
+}
+
+.nextTeamInfoContainer {
+	width: 1300px;
+	height: 500px;
+
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 2fr 1.5fr 2fr;
+
+	position: absolute;
+}
+
+.nextVersus {
+	font-size: 10em;
+	color: white;
+	text-align: center;
+	align-self: center;
+}
+
+.nextTeamInfo {
+	border-radius: 15px;
+	width: 475px;
+}
+
+.nextTeamTitleBG {
+	background-color: #BFFBE3;
+	border-radius: 5px 5px 0 0;
+	height: 100px;
+	font-weight: 700;
+	font-size: 3.5em;
+	display: flex;
+	align-items: center;
+}
+
+.nextTeamTitleBG fitted-text {
+	margin: 0 20px;
+	margin-bottom: 25px;
+	color: black;
+}
+
+.nextLeftTitleBG {
+	justify-content: flex-end;
+}
+
+.nextTeamPlayersBG {
+	background-color: #181B34;
+	height: calc(100% - 75px);
+	margin-top: -25px;
+	border-radius: 5px;
+	padding-top: 10px;
+	height: 475px;
+	overflow: hidden;
+}
+
+.nextTeamPlayersBG fitted-text {
+	color: white;
+	font-size: 40px;
+	margin: 0 20px;
+	height: 52px;
+	z-index: 10;
+}
+
+.particles {
+	overflow: hidden;
+	z-index: -89;
+}
+
+.particle {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	background-image: url('../../img/particle2.png');
+	background-size: contain;
+}
+
+span.pronoun {
+	font-size: 20px;
+	background-color: #BFFBE3;
+	padding: 0 5px;
+	color: black;
+}
+
+.teamImage {
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	top: 110px;
+	opacity: 0.25;
+	border-radius: 50%;
+	z-index: 5;
+	background-position: 50% 50%;
+	background-size: cover;
+}
+
+#teamAImage {
+	left: 40px;
+}
+
+#teamBImage {
+	right: 40px;
+}
