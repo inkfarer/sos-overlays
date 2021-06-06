@@ -11,32 +11,48 @@ A [NodeCG](http://github.com/nodecg/nodecg) bundle for Swim or Sink, an [Inkling
 
 ## Install
 
-1.1. Install NodeCG and [nodecg-cli](https://github.com/nodecg/nodecg-cli) (optional)
+- Install [git](http://git-scm.com/)
 
-If you're using nodecg-cli:
+- Install [node.js](https://nodejs.org/en/) (Using the LTS release (14.x as of writing) is recommended.)
 
-2.1. Run `nodecg install inkfarer/sos-overlays`.
+- Install [nodecg-cli](https://github.com/nodecg/nodecg-cli) using `npm`: `npm install -g nodecg-cli`
 
-2.2. Install the dashboard by running `nodecg install inkfarer/ipl-overlay-controls`
+- Install `nodecg` in a new folder:
 
-Otherwise:
-
-2.1. Clone sos-overlays to `nodecg/bundles/sos-overlays` and clone [ipl-overlay-controls](https://github.com/inkfarer/ipl-overlay-controls) to `nodecg/bundles/ipl-overlay-controls`.
-
-2.2. Install dependencies by running `npm install` in `nodecg/bundles/sos-overlays` and `nodecg/bundles/ipl-overlay-controls`.
-
-3.1. For last.fm integration to work, create the configuration file at `nodecg/cfg/ipl-overlay-controls.json`.
-
-Example configuration file:
+```shell
+mkdir nodecg
+cd nodecg
+nodecg setup
 ```
+
+- Install the dashboard: `nodecg install inkfarer/ipl-overlay-controls`
+
+  - The overlays work with v2.x.x of `ipl-overlay-controls`. Specify a version by adding the version number with a
+    \# symbol: `nodecg install inkfarer/ipl-overlay-controls#2.0.3`
+
+- Install the overlays: `nodecg install inkfarer/sos-overlays`
+
+- (Optional) Create the configuration file in `[nodecg root]/cfg/ipl-overlay-controls.json` with the following contents:
+
+```json
 {
 	"lastfm": {
 		"targetAccount": "Your last.fm account name",
 		"apiKey": "your API key",
 		"secret": "your secret"
-	}
+	},
+	"radia": {
+    "url": "API URL",
+    "authentication": "You Auth Key"
+  }
 }
 ```
+
+- Start nodecg using the `nodecg start` command in the folder you installed NodeCG in.
+
+- Access the dashboard from `http://localhost:9090/` in your browser.
+
+- Access the graphics from the "Graphics" tab in the dashboard. They are made to be used as browser sources in your preferred broadcast a
 
 ## Usage
 
