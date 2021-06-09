@@ -24,7 +24,7 @@ const mapNameToImagePath = {"Ancho-V Games": "S2_Stage_Ancho-V_Games.png",
 	"Wahoo World":"S2_Stage_Wahoo_World.png",
 	"Walleye Warehouse":"S2_Stage_Walleye_Warehouse.png",
 	"Skipper Pavilion":"S2_Stage_Skipper_Pavilion.png",
-	"Unknown Map":"unnamed-unknown-map.png"};
+	"Unknown Stage":"unnamed-unknown-map.png"};
 
 function createMapListElems(maplist) {
 	let stagesGrid = document.querySelector('.stagesGrid');

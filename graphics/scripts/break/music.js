@@ -26,6 +26,7 @@ NodeCG.waitForReplicants(nowPlaying, manualNowPlaying, nowPlayingSource).then(()
 
 		setMainSceneText(getSongNameString(value), document.querySelector('#breakMusic'));
 	});
+
 	manualNowPlaying.on('change', newValue => {
 		if (nowPlayingSource.value === 'manual') {
 			setMainSceneText(getSongNameString(newValue), document.querySelector('#breakMusic'));
