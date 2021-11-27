@@ -1,8 +1,6 @@
-// teams
-
 activeRound.on('change', newValue => {
-	nextTeamAName.setAttribute('text', newValue.teamA.name);
-	nextTeamBName.setAttribute('text', newValue.teamB.name);
+	nextTeamAName.setAttribute('text', addDots(newValue.teamA.name));
+	nextTeamBName.setAttribute('text', addDots(newValue.teamB.name));
 
 	teamAplayersBG.innerHTML = '';
 	teamBplayersBG.innerHTML = '';
@@ -26,7 +24,7 @@ activeRound.on('change', newValue => {
 
 function createNextTeamPlayerElem(name, align, team) {
 	const elem = document.createElement('fitted-text');
-	elem.text = name;
+	elem.text = addDots(name);
 	elem.maxWidth = 435;
 	elem.align = align;
 	if (team === 'a') {

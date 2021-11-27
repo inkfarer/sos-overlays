@@ -80,8 +80,8 @@ function createMapListElems(maplist) {
 
 NodeCG.waitForReplicants(activeRound).then(() => {
 	activeRound.on('change', (newValue, oldValue) => {
-		document.querySelector('#teamAName').setAttribute('text', newValue.teamA.name);
-		document.querySelector('#teamBName').setAttribute('text', newValue.teamB.name);
+		document.querySelector('#teamAName').setAttribute('text', addDots(newValue.teamA.name));
+		document.querySelector('#teamBName').setAttribute('text', addDots(newValue.teamB.name));
 		document.querySelector('#teamAScore').setAttribute('text', newValue.teamA.score);
 		document.querySelector('#teamBScore').setAttribute('text', newValue.teamB.score);
 
@@ -169,7 +169,7 @@ function setWinner(index, name, shown) {
 	else { opacity = 0; }
 
 	if (shown) {
-		winnerElem.innerText = name;
+		winnerElem.innerText = addDots(name);
 	}
 
 	gsap.to(winnerElem, {opacity: opacity, duration: 0.5});

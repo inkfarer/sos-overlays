@@ -1,6 +1,6 @@
 activeRound.on('change', (newValue) => {
-	document.querySelector('#teamAName').setAttribute('text', newValue.teamA.name);
-	document.querySelector('#teamBName').setAttribute('text', newValue.teamB.name);
+	document.querySelector('#teamAName').setAttribute('text', addDots(newValue.teamA.name));
+	document.querySelector('#teamBName').setAttribute('text', addDots(newValue.teamB.name));
 
 	document.querySelector('#teamAScore').setAttribute('text', newValue.teamA.score);
 	document.querySelector('#teamBScore').setAttribute('text', newValue.teamB.score);
