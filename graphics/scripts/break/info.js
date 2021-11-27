@@ -31,7 +31,7 @@ function setMainSceneText(text, elem, hasIcon = true, useInnerHTML = false) {
 	let bgElem = elem.querySelector('div.infoBoxBG');
 	let bgWidth = hasIcon ? textWidth + 70 : textWidth;
 
-	if (textElem.getAttribute('text') == text) return;
+	if (textElem.getAttribute('text') === text) return;
 
 	let textTL = gsap.timeline();
 
@@ -93,9 +93,3 @@ function animToggleInfo(showTimer, showMusic, infoElem, elemShown, divider) {
 	gsap.to(infoElem, {duration: 0.5, opacity: elemOpacity, delay: elemDelay, ease: 'power2.inOut'});
 	gsap.to('.mainSceneGrid', {duration: 0.5, gridTemplateRows: gridStyle, ease: 'power2.inOut', delay: gridDelay});
 }
-
-NodeCG.waitForReplicants(nextRoundStartTimeShown).then(() => {
-	nextRoundStartTimeShown.on('change', newValue => {
-		animToggleInfo(newValue, musicShown.value, '#breakTimer', newValue, '#timeDivider');
-	});
-});

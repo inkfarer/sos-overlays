@@ -1,31 +1,34 @@
 // teams
 
-nextTeams.on('change', newValue => {
-	nextTeamAName.setAttribute('text', newValue.teamAInfo.name);
-	nextTeamBName.setAttribute('text', newValue.teamBInfo.name);
+activeRound.on('change', newValue => {
+	nextTeamAName.setAttribute('text', newValue.teamA.name);
+	nextTeamBName.setAttribute('text', newValue.teamB.name);
 
 	teamAplayersBG.innerHTML = '';
 	teamBplayersBG.innerHTML = '';
 
-	newValue.teamAInfo.players.forEach(player => {
+	newValue.teamA.players.forEach(player => {
 		const elem = createNextTeamPlayerElem(player.name, 'right', 'a');
 		teamAplayersBG.appendChild(elem);
 	});
 
-	newValue.teamBInfo.players.forEach(player => {
+	newValue.teamB.players.forEach(player => {
 		const elem = createNextTeamPlayerElem(player.name, 'left', 'b');
 		teamBplayersBG.appendChild(elem);
 	});
 
-	teamAImage.style.backgroundImage = `url(${newValue.teamAInfo.logoUrl})`;
-	teamBImage.style.backgroundImage = `url(${newValue.teamBInfo.logoUrl})`;
+	teamAImage.style.backgroundImage = `url(${newValue.teamA.logoUrl})`;
+	teamBImage.style.backgroundImage = `url(${newValue.teamB.logoUrl})`;
+
+	gsap.to('#teamAImage', {duration: 0.5, opacity: (newValue.teamA.showLogo ? 0.25 : 0)});
+	gsap.to('#teamBImage', {duration: 0.5, opacity: (newValue.teamB.showLogo ? 0.25 : 0)});
 });
 
 function createNextTeamPlayerElem(name, align, team) {
 	const elem = document.createElement('fitted-text');
-	elem.setAttribute('text', name);
-	elem.setAttribute('max-width', '435');
-	elem.setAttribute('align', align);
+	elem.text = name;
+	elem.maxWidth = 435;
+	elem.align = align;
 	if (team === 'a') {
 		elem.classList.add('nextTeamAPlayer');
 	} else {
@@ -34,17 +37,3 @@ function createNextTeamPlayerElem(name, align, team) {
 
 	return elem;
 }
-
-// Hide team image
-
-teamImageShown.on('change', newValue => {
-	gsap.to('#teamAImage', {duration: 0.5, opacity: (newValue.teamA ? 0.25 : 0)});
-	gsap.to('#teamBImage', {duration: 0.5, opacity: (newValue.teamB ? 0.25 : 0)});
-});
-
-// Scoreboard on maps page
-
-teamScores.on('change', newValue => {
-	document.querySelector('#teamAScore').setAttribute('text', newValue.teamA);
-	document.querySelector('#teamBScore').setAttribute('text', newValue.teamB);
-});
