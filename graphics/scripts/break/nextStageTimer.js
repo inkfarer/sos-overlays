@@ -1,29 +1,26 @@
-var nextStageInterval = setInterval(() => {
-	const now = new Date();
-	const diff = new Date(nextStageTimeObj - now);
-	const diffMinutes = Math.ceil(diff / (1000 * 60));
-	if (lastDiff !== diffMinutes) {
-		lastDiff = diffMinutes;
-		var newText;
-		if (diffMinutes < 1) {
+let nextStageDate;
+let lastDiff;
+
+nextRoundTime.on('change', newValue => {
+	animToggleInfo(newValue.isVisible, musicShown.value, '#breakTimer', newValue.isVisible, '#timeDivider');
+
+	nextStageDate = luxon.DateTime.fromISO(newValue.startTime);
+});
+
+setInterval(() => {
+	const diff = Math.ceil(nextStageDate.diffNow(['minutes']).toObject().minutes);
+	if (lastDiff !== diff) {
+		lastDiff = diff;
+		let newText;
+
+		if (diff < 1) {
 			newText = 'Next round begins soon!';
-		} else if (diffMinutes == 1) {
-			newText = `Next round begins in ~${diffMinutes} minute...`;
+		} else if (diff === 1) {
+			newText = `Next round begins in ~${diff} minute...`;
 		} else {
-			newText = `Next round begins in ~${diffMinutes} minutes...`;
+			newText = `Next round begins in ~${diff} minutes...`;
 		}
+
 		setMainSceneText(newText, document.querySelector('#breakTimer'));
 	}
 }, 1000);
-
-var lastDiff;
-var nextStageTimeObj;
-
-nextRoundTime.on('change', newValue => {
-	time = new Date();
-	time.setDate(newValue.day);
-	time.setHours(newValue.hour, newValue.minute, 0);
-	time.setMonth(newValue.month-1);
-
-	nextStageTimeObj = time;
-});

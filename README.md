@@ -15,7 +15,7 @@ tournament.
 1. Follow the instruction [here in ipl-overlay-controls](https://github.com/inkfarer/ipl-overlay-controls) to do
    the initial setup of NodeCG and Overlay Control Panel.
 
-2. Install the overlays: `nodecg install inkfarer/sos-overlays`
+2. From the NodeCG root, install the overlays: `nodecg install inkfarer/sos-overlays`
 
 3. Start nodecg using the `nodecg start` command in the folder you installed NodeCG in.
 

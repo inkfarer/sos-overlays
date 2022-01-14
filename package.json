@@ -1,7 +1,7 @@
 {
   "name": "sos-overlays",
   "version": "0.0.0",
-  "compatibleDashboardVersion": "^2.0.0",
+  "compatibleDashboardVersion": "^3.0.0",
   "description": "Overlays Swim or Sink, a weekly Splatoon tournament.",
   "homepage": "",
   "author": {
@@ -37,7 +37,9 @@
   "repository": "https://github.com/nodecg/nodecg.git",
   "license": "MIT",
   "dependencies": {
-    "fitted-text": "^1.0.1",
+    "fitted-text": "^2.0.0",
+    "lodash": "^4.17.21",
+    "luxon": "^1.26.0",
     "gsap": "^3.6.1"
   }
 }

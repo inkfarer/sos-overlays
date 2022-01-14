@@ -4,19 +4,19 @@ casters.on('change', newValue => {
 	const castersHeight = Object.keys(newValue).length * 40;
 	gsap.set('div.castersWrapper > .castersBG', {height: castersHeight});
 
-	let bg = document.querySelector('.castersBG');
+	const bg = document.querySelector('.castersBG');
 	let elemHtml = '';
 
-	Object.keys(newValue).forEach((item, index, arr) => {
+	Object.keys(newValue).forEach((item) => {
 		const element = newValue[item];  // Get caster from object
 		// Build new object and append to list
 		elemHtml += `
 		<div class="caster">
 			<div class="caster-name">
-				<fitted-text text="${element.name} <span class=&quot;pronoun&quot;>${element.pronouns}</span>" useInnerHTML max-width="235"></fitted-text>
+				<fitted-text text="${element.name} <span class=&quot;pronoun&quot;>${element.pronouns}</span>" use-inner-html max-width="235"></fitted-text>
 			</div>
 			<div class="caster-twitter">
-				<fitted-text text="${element.twitter} <span class=&quot;pronoun&quot;>${element.pronouns}</span>" useInnerHTML max-width="235"></fitted-text>
+				<fitted-text text="${element.twitter} <span class=&quot;pronoun&quot;>${element.pronouns}</span>" use-inner-html max-width="235"></fitted-text>
 			</div>
 		</div>`
 	});
