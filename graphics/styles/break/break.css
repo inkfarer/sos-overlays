@@ -74,9 +74,15 @@ body {
 
 .bigLogo {
 	height: 100%;
+	width: 75%;
 	justify-self: center;
 	margin-top: -15px;
-	background: radial-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image:
+			url('../../img/sos-logo-tr.png'),
+			radial-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
 }
 
 .mainSceneGrid {

@@ -104,9 +104,9 @@ NodeCG.waitForReplicants(activeRound).then(() => {
 
 		const stages = newValue.games;
 
-		doOnDifference(newValue, oldValue, 'round.id', () => createMapListElems(stages));
+		doOnDifference(newValue, oldValue, 'match.id', () => createMapListElems(stages));
 
-		doOnNoDifference(newValue, oldValue, 'round.id', () => {
+		doOnNoDifference(newValue, oldValue, 'match.id', () => {
 			newValue.games.forEach((game, index) => {
 				doOnDifference(newValue, oldValue, `games[${index}].winner`,
 					newWinner => setWinner(index, getWinnerName(newWinner), newWinner !== 'none'));
