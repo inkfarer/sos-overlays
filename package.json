@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "compatibleDashboardVersion": "^4.0.0",
   "description": "Overlays Swim or Sink, a weekly Splatoon tournament.",
-  "homepage": "",
   "author": {
     "name": "inkfarer",
     "email": "inkfarer@inkfarer.com",
