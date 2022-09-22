@@ -30,7 +30,7 @@ const mapNameToImagePath = {"Ancho-V Games": "S2_Stage_Ancho-V_Games.png",
     "Undertow Spillway":"S3_Stage_Undertow_Spillway.webp",
     "Mincemeat Metalworks":"S3_Stage_Mincemeat_Metalworks.png",
     "Hammerhead Bridge":"S3_Stage_Hammerhead_Bridge.jpg",
-    "Museum d'Alfonsino":"S3_Stage_Museum_d'Alfonsino.jpg",
+    "Museum d'Alfonsino":"S3_Stage_Museum_dAlfonsino.jpg",
     "Mahi-Mahi Resort":"S3_Stage_Mahi_Mahi_Resort.jpg",
 
 	"Unknown Stage":"unnamed-unknown-map.png",
